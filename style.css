@@ -335,7 +335,23 @@ a:hover {
     .container {
         max-width: 100%;
     }
+    
+    /* --- CORRECTED PROFILE LAYOUT FOR MOBILE --- */
+    .profile-section {
+        /* This ensures the entire section's content is centered */
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+    
+    .profile-header {
+        /* This stacks the image on top of the text */
+        flex-direction: column;
+        text-align: center;
+        gap: 15px;
+    }
 
+    /* --- THEME TOGGLE AND PLANT POSITIONING --- */
     .theme-toggle {
         width: 44px;
         height: 44px;
@@ -344,7 +360,8 @@ a:hover {
 
     .plant-container {
         bottom: 20px;
-        right: 20px;
+        left: 20px; /* Keep it on the left */
+        right: auto; /* Remove any lingering 'right' positioning */
     }
 
     .plant-wrapper {
@@ -406,3 +423,52 @@ a:hover {
             height: 100%;
             object-fit: cover;
         }
+/* --- NEW: Profile Header Layout --- */
+.profile-header {
+    display: flex;
+    align-items: center;
+    gap: 25px; /* Creates space between the image and the text */
+}
+
+/* --- MODIFIED: Original Profile Section --- */
+/* This overrides the previous centering styles */
+.profile-section {
+    display: block;
+    align-items: normal;
+}
+
+/* --- MODIFIED: Status Text --- */
+/* The margin is now on .profile-header, so we remove it from here */
+.status {
+    margin-bottom: 0;
+}
+
+/* --- MODIFIED: Plant Container Position --- */
+/* Moves the plant to the bottom-left corner */
+.plant-container {
+    position: fixed;
+    bottom: 30px;
+    left: 30px; /* Changed from 'right' */
+    right: auto;
+    z-index: 99;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 15px;
+}
+
+/* --- MODIFIED: Responsive Adjustments --- */
+@media (max-width: 640px) {
+    /* Stacks the profile image on top of the text on small screens */
+    .profile-header {
+        flex-direction: column;
+        text-align: center;
+        gap: 15px;
+    }
+
+    /* Adjusts plant position for mobile */
+    .plant-container {
+        bottom: 20px;
+        left: 20px; /* Changed from 'right' */
+    }
+}
