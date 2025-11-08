@@ -7,32 +7,32 @@
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <div class="bg-animation" id="bgAnimation"></div>
-
+    <canvas id="particle-canvas"></canvas>
     <button class="theme-toggle" id="themeToggle">☀️</button>
 
     <div class="container">
-                <!-- Profile Section -->
-<div class="profile-section">
-            <div class="profile-header">
+        <!-- New Hero Layout -->
+        <div class="hero-layout">
+            <div class="hero-content-column">
+                <h1>Rishanth Gautham Kalicheti</h1>
+                <p class="status">Love doing both Product & Engineering...</p>
+                <div class="fun-fact">
+                    <p> > <span id="funFactText"></span><span class="cursor">|</span></p>
+                </div>
+            </div>
+            <div class="hero-image-column">
                 <div class="profile-image-placeholder" id="profileImage">
                     <img src="assets/images/profile.jpg" alt="A photo of Rishanth Gautham Kalicheti">
                 </div>
-                <div class="profile-text">
-                    <h1>Rishanth Gautham Kalicheti</h1>
-                    <p class="status">Love doing both Product & Engineering...</p>
-                </div>
             </div>
-            <div class="fun-fact">
-                <p> > <span id="funFactText"></span><span class="cursor">|</span></p>
-            </div>
+        </div>
 
         <section>
             <h2>About</h2>
             <div class="section-content">
-                <br>I like turning messy data and complex problems into things people can actually use. I’ve spent years wiring systems together, building models, and shipping dashboards.. but what I care about most is how the work helps a person make a better call five minutes faster.
-                    <br></br>
-I think like a product person: I sketch simple flows, test small ideas, and ask real users what they need. I’m not one of those people who only loves tech — I care about usefulness, clarity, and the quiet satisfaction when something finally clicks.</p>
+                I like turning messy data and complex problems into things people can actually use. I’ve spent years wiring systems together, building models, and shipping dashboards.. but what I care about most is how the work helps a person make a better call five minutes faster.
+                <br><br>
+                I think like a product person: I sketch simple flows, test small ideas, and ask real users what they need. I’m not one of those people who only loves tech — I care about usefulness, clarity, and the quiet satisfaction when something finally clicks.
             </div>
         </section>
 
@@ -41,7 +41,7 @@ I think like a product person: I sketch simple flows, test small ideas, and ask 
             <div class="section-content">
                 <div class="section-item">
                     <div class="item-title">Baxter International | Analytical Engineer</div>
-                    <div class="item-subtitle">(Aug 2023 – Aug 2025)</div>
+                    <div class="item-subtitle">(Aug 2023 – * )</div>
                     <div class="item-description">At Baxter, I helped bring scattered data from AWS, SAP, Oracle, and other systems into one clear picture for teams across regions. I built pipelines and dashboards that made reporting faster and more trustworthy. My focus was always on making data useful for people — helping procurement and finance see the same truth and make better decisions together.</div>
                 </div>
 
@@ -54,120 +54,67 @@ I think like a product person: I sketch simple flows, test small ideas, and ask 
         </section>
 
         <section>
-            <h2>Projects</h2>
-            <div class="section-content">
-                <div class="section-item">
-                    <div class="item-title">Currently working</div>
-                    <div><a href= "https://simplr-k18.github.io/portfolio/" class="item-title">Portfolio Website</a></div>
+            <!-- MODIFIED: Project Header and new Tag Filter -->
+            <div class="project-header">
+                <h2>Projects</h2>
+            </div>
+            <div id="tag-filter-container" class="tag-filter-container"></div>
+
+            <div class="project-grid">
+                <div class="section-item" data-skills="Web Development,JavaScript">
+                    <a href="https://simplr-k18.github.io/portfolio/" target="_blank" rel="noopener noreferrer" class="item-title-link">Portfolio Website</a>
                     <div class="item-description">A showcase of my work and projects, demonstrating my approach to clean design and functional code.</div>
+                    <div class="card-footer">
+                        <a href="https://github.com/simplr-k18/portfolio" target="_blank" rel="noopener noreferrer" class="card-icon" aria-label="GitHub repository for Portfolio Website"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"></path></svg></a>
+                        <span class="skill-label">Web Development</span>
+                    </div>
                 </div>
 
-                <div class="section-item">
-                    <div class="item-title">Other Open Source Products</div>
-                    <div><a href= "https://simplr-k18.github.io/portfolio/" class="item-title">Bring you own software</a></div>
-                    <div class="item-description">Active contributor to the developer community, with a focus on tools and utilities that make development more efficient.</div>
+                <div class="section-item" data-skills="Product Manager,AI">
+                    <a href="https://github.com/simplr-k18/DreamLens" target="_blank" rel="noopener noreferrer" class="item-title-link">DreamLens</a>
+                    <div class="item-description">Helps kids imagine positive futures. The goal is simple: spark curiosity through joyful and meaningful visuals.</div>
+                    <div class="card-footer">
+                        <a href="https://github.com/simplr-k18/DreamLens" target="_blank" rel="noopener noreferrer" class="card-icon" aria-label="GitHub repository for DreamLens"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"></path></svg></a>
+                        <span class="skill-label">Product Manager</span>
+                    </div>
                 </div>
-                <div class="section-item">
-                    <div><a href= "https://simplr-k18.github.io/portfolio/" class="item-title">Bring you own software</a></div>
-                    <div class="item-description">Active contributor to the developer community, with a focus on tools and utilities that make development more efficient.</div>
+
+                <div class="section-item" data-skills="Product Manager,AI">
+                    <a href="https://github.com/simplr-k18/OPTIMA" target="_blank" rel="noopener noreferrer" class="item-title-link">Optima</a>
+                    <div class="item-description">AI that sees your space, understands your taste, and curates everything to fit your life.</div>
+                    <div class="card-footer">
+                        <a href="https://github.com/simplr-k18/OPTIMA" target="_blank" rel="noopener noreferrer" class="card-icon" aria-label="GitHub repository for Optima"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"></path></svg></a>
+                        <span class="skill-label">Product Manager</span>
+                    </div>
                 </div>
-                <div class="section-item">
-                    <div><a href= "https://simplr-k18.github.io/portfolio/" class="item-title">Bring you own software</a></div>
-                    <div class="item-description">Active contributor to the developer community, with a focus on tools and utilities that make development more efficient.</div>
+
+                <div class="section-item" data-skills="Data Modeling,Data Engineering">
+                    <a href="#" target="_blank" rel="noopener noreferrer" class="item-title-link">Product Recommendation Engine</a>
+                    <div class="item-description">Active contributor to the developer community.</div>
+                    <div class="card-footer">
+                        <a href="#" target="_blank" rel="noopener noreferrer" class="card-icon" aria-label="GitHub repository for Product Recommendation Engine"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"></path></svg></a>
+                        <span class="skill-label">Data Modeling</span>
+                    </div>
                 </div>
-                <div class="section-item">
-                    <div><a href= "https://simplr-k18.github.io/portfolio/" class="item-title">Bring you own software</a></div>
-                    <div class="item-description">Active contributor to the developer community, with a focus on tools and utilities that make development more efficient.</div>
-                </div>
+            </div>
+            <!-- NEW: Empty state for filters -->
+            <div id="no-results" class="no-results" style="display: none;">
+                <p>No projects match the selected filters.</p>
+                <button id="clear-filters-empty-btn">Clear Filters</button>
             </div>
         </section>
 
         <section>
             <h2>Get In Touch</h2>
             <div class="contact-section">
-                <a href="https://github.com/simplr-k18" class="contact-link">GitHub</a>
-                <a href="https://linkedin.com/in/rishanth-gautam" class="contact-link">LinkedIn</a>
+                <a href="https://github.com/simplr-k18" target="_blank" rel="noopener noreferrer" class="contact-link">GitHub</a>
+                <a href="https://linkedin.com/in/rishanth-gautam" target="_blank" rel="noopener noreferrer" class="contact-link">LinkedIn</a>
                 <a href="mailto:rishanthkalicheti@gmail.com" class="contact-link">Email</a>
-                <a href="assets/docs/Rishi_6YoE_Engineer.pdf" class="contact-link">Dribble</a>
-                <a href="https://x.com/StayUNnoticed" class="contact-link">Twitter (X)</a>
-                <a href="assets/docs/Rishi_6YoE_Engineer.pdf" class="contact-link">Resume</a>
+                <a href="assets/docs/Rishi_6YoE_Engineer.pdf" target="_blank" rel="noopener noreferrer" class="contact-link">Dribble</a>
+                <a href="https://x.com/StayUNnoticed" target="_blank" rel="noopener noreferrer" class="contact-link">Twitter (X)</a>
+                <a href="assets/docs/Rishi_6YoE_Engineer.pdf" target="_blank" rel="noopener noreferrer" class="contact-link">Resume</a>
             </div>
         </section>
-    </div>
-
-    <div class="plant-container">
-        <div class="analytics-badge" id="analyticsBadge">
-            </div>
-        <div class="plant-wrapper" id="plantWrapper">
-            <svg class="plant-svg" id="plantSvg" viewBox="0 0 120 140" xmlns="http://www.w3.org/2000/svg">
-                <g id="stage-1" opacity="1">
-                    <circle cx="60" cy="130" r="8" fill="#8B6F47"/>
-                    <ellipse cx="60" cy="128" rx="6" ry="4" fill="#6B5535" opacity="0.6"/>
-                </g>
-                <g id="stage-2" opacity="0">
-                    <circle cx="60" cy="130" r="6" fill="#8B6F47" opacity="0.5"/>
-                    <ellipse cx="55" cy="110" rx="4" ry="14" fill="#90EE90"/>
-                    <ellipse cx="65" cy="110" rx="4" ry="14" fill="#90EE90"/>
-                </g>
-                <g id="stage-3" opacity="0">
-                    <circle cx="60" cy="130" r="5" fill="#8B6F47" opacity="0.4"/>
-                    <ellipse cx="50" cy="105" rx="5" ry="16" fill="#7FCD7F"/>
-                    <ellipse cx="70" cy="105" rx="5" ry="16" fill="#7FCD7F"/>
-                    <ellipse cx="60" cy="100" rx="6" ry="18" fill="#90EE90"/>
-                    <ellipse cx="45" cy="110" rx="3" ry="8" fill="#90EE90"/>
-                    <ellipse cx="75" cy="110" rx="3" ry="8" fill="#90EE90"/>
-                </g>
-                <g id="stage-4" opacity="0">
-                    <circle cx="60" cy="130" r="4" fill="#8B6F47" opacity="0.3"/>
-                    <ellipse cx="50" cy="95" rx="6" ry="20" fill="#6FA86F"/>
-                    <ellipse cx="70" cy="95" rx="6" ry="20" fill="#6FA86F"/>
-                    <ellipse cx="60" cy="85" rx="7" ry="22" fill="#7FCD7F"/>
-                    <ellipse cx="40" cy="105" rx="4" ry="10" fill="#90EE90"/>
-                    <ellipse cx="80" cy="105" rx="4" ry="10" fill="#90EE90"/>
-                    <ellipse cx="42" cy="120" rx="3" ry="6" fill="#7FCD7F"/>
-                    <ellipse cx="78" cy="120" rx="3" ry="6" fill="#7FCD7F"/>
-                </g>
-                <g id="stage-5" opacity="0">
-                    <circle cx="60" cy="130" r="3" fill="#8B6F47" opacity="0.2"/>
-                    <ellipse cx="50" cy="85" rx="7" ry="24" fill="#5A8C5A"/>
-                    <ellipse cx="70" cy="85" rx="7" ry="24" fill="#5A8C5A"/>
-                    <ellipse cx="60" cy="75" rx="8" ry="26" fill="#6FA86F"/>
-                    <ellipse cx="35" cy="95" rx="5" ry="12" fill="#7FCD7F"/>
-                    <ellipse cx="85" cy="95" rx="5" ry="12" fill="#7FCD7F"/>
-                    <ellipse cx="38" cy="115" rx="4" ry="8" fill="#90EE90"/>
-                    <ellipse cx="82" cy="115" rx="4" ry="8" fill="#90EE90"/>
-                    <ellipse cx="45" cy="60" rx="4" ry="10" fill="#90EE90"/>
-                    <ellipse cx="75" cy="60" rx="4" ry="10" fill="#90EE90"/>
-                    <circle cx="50" cy="70" r="4" fill="#FFB6C1" opacity="0.8"/>
-                    <circle cx="70" cy="72" r="4" fill="#FFB6C1" opacity="0.8"/>
-                </g>
-                <g id="stage-6" opacity="0">
-                    <rect x="57" y="95" width="6" height="35" fill="#8B6F47" rx="3"/>
-                    <circle cx="55" cy="65" r="12" fill="#5A8C5A"/>
-                    <circle cx="65" cy="65" r="12" fill="#5A8C5A"/>
-                    <circle cx="60" cy="55" r="13" fill="#6FA86F"/>
-                    <ellipse cx="40" cy="80" rx="8" ry="12" fill="#7FCD7F"/>
-                    <ellipse cx="80" cy="80" rx="8" ry="12" fill="#7FCD7F"/>
-                    <circle cx="50" cy="50" r="5" fill="#FFB6C1" opacity="0.9"/>
-                    <circle cx="70" cy="52" r="5" fill="#FFB6C1" opacity="0.9"/>
-                    <circle cx="60" cy="45" r="5" fill="#FFD700" opacity="0.9"/>
-                </g>
-                <g id="stage-7" opacity="0">
-                    <rect x="56" y="85" width="8" height="45" fill="#8B6F47" rx="4"/>
-                    <circle cx="50" cy="50" r="16" fill="#4A7C4A"/>
-                    <circle cx="70" cy="50" r="16" fill="#4A7C4A"/>
-                    <circle cx="60" cy="35" r="18" fill="#5A8C5A"/>
-                    <circle cx="60" cy="25" r="10" fill="#6FA86F" opacity="0.9"/>
-                    <circle cx="35" cy="70" r="12" fill="#5A8C5A"/>
-                    <circle cx="85" cy="70" r="12" fill="#5A8C5A"/>
-                    <circle cx="45" cy="40" r="4" fill="#FF69B4" opacity="0.9"/>
-                    <circle cx="75" cy="42" r="4" fill="#FF69B4" opacity="0.9"/>
-                    <circle cx="60" cy="30" r="4" fill="#FFD700" opacity="0.9"/>
-                    <circle cx="50" cy="25" r="4" fill="#FFD700" opacity="0.8"/>
-                    <circle cx="70" cy="28" r="4" fill="#FFD700" opacity="0.8"/>
-                </g>
-            </svg>
-        </div>
     </div>
 
     <script src="script.js" defer></script>

@@ -2,7 +2,6 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // --- Theme Toggle ---
     const themeToggle = document.getElementById('themeToggle');
-    const bgAnimation = document.getElementById('bgAnimation');
 
     const savedTheme = localStorage.getItem('theme') || 'dark';
     const isDark = savedTheme === 'dark';
@@ -12,130 +11,213 @@ document.addEventListener('DOMContentLoaded', () => {
         themeToggle.textContent = '🌙';
     }
 
-    createBackgroundAnimation(isDark);
-
     themeToggle.addEventListener('click', () => {
         const isCurrentlyDark = !document.body.classList.contains('light-mode');
         document.body.classList.toggle('light-mode');
         themeToggle.textContent = isCurrentlyDark ? '🌙' : '☀️';
         localStorage.setItem('theme', isCurrentlyDark ? 'light' : 'dark');
-        
-        bgAnimation.innerHTML = '';
-        createBackgroundAnimation(!isCurrentlyDark);
+    });
+    // --- NEW: Particle Animation ---
+    const canvas = document.getElementById('particle-canvas');
+    const ctx = canvas.getContext('2d');
+
+    let mouse = {
+        x: null,
+        y: null,
+        radius: 100
+    };
+
+    window.addEventListener('mousemove', event => {
+        mouse.x = event.x;
+        mouse.y = event.y;
     });
 
-    function createBackgroundAnimation(isDark) {
-        if (isDark) {
-            // Snowflakes
-            for (let i = 0; i < 30; i++) {
-                const snowflake = document.createElement('div');
-                snowflake.classList.add('snowflake');
-                snowflake.textContent = '❅';
-                snowflake.style.left = Math.random() * 100 + '%';
-                snowflake.style.animationDuration = (Math.random() * 10 + 10) + 's';
-                snowflake.style.animationDelay = Math.random() * 2 + 's';
-                snowflake.style.opacity = Math.random() * 0.3 + 0.1;
-                bgAnimation.appendChild(snowflake);
-            }
-        } else {
-            // Sunrise Sun
-            const sun = document.createElement('div');
-            sun.classList.add('sunrise-sun');
-            bgAnimation.appendChild(sun);
+    window.addEventListener('mouseout', () => {
+        mouse.x = undefined;
+        mouse.y = undefined;
+    });
+
+    let particles = [];
+
+    function resizeCanvas() {
+        // --- MODIFIED: Handle high-DPI screens for sharpness ---
+        const dpr = window.devicePixelRatio || 1;
+        canvas.width = window.innerWidth * dpr;
+        canvas.height = window.innerHeight * dpr;
+        canvas.style.width = `${window.innerWidth}px`;
+        canvas.style.height = `${window.innerHeight}px`;
+        ctx.scale(dpr, dpr);
+    }
+
+    function createParticles() {
+        particles = [];
+        const particleCount = window.innerWidth > 768 ? 150 : 50;
+        for (let i = 0; i < particleCount; i++) {
+            particles.push({
+                x: Math.random() * window.innerWidth,
+                y: Math.random() * window.innerHeight,
+                vx: (Math.random() - 0.5) * 0.5,
+                vy: (Math.random() - 0.5) * 0.5,
+                size: Math.random() * 1.5 + 1,
+            });
         }
     }
 
-    // --- Analytics Counter ---
-    function updateAnalytics() {
-        let visits = 1000;
-        const stored = parseInt(localStorage.getItem('portfolioVisits') || '1000');
-        visits = stored + Math.floor(Math.random() * 3);
-        localStorage.setItem('portfolioVisits', visits);
+    function animateParticles() {
+        ctx.clearRect(0, 0, window.innerWidth, window.innerHeight);
+        const isDark = !document.body.classList.contains('light-mode');
+        const particleColor = isDark ? 'rgba(255, 255, 255, 0.8)' : 'rgba(0, 0, 0, 0.8)';
+        const lineColor = isDark ? 'rgba(255, 255, 255, 0.1)' : 'rgba(0, 0, 0, 0.1)';
 
-        const badge = document.getElementById('analyticsBadge');
-        const k = (visits / 1000).toFixed(1);
-        badge.innerHTML = `
-            <div style="font-weight: 600; color: var(--text);">${k}K+ Visited</div>
-            <div style="font-size: 12px; margin-top: 4px;">Thanks for stopping by!</div>
-        `;
+        particles.forEach((p, i) => {
+            p.x += p.vx;
+            p.y += p.vy;
+
+            if (p.x < 0 || p.x > window.innerWidth) p.vx *= -1;
+            if (p.y < 0 || p.y > window.innerHeight) p.vy *= -1;
+
+            // --- NEW: Mouse interaction ---
+            let dx = mouse.x - p.x;
+            let dy = mouse.y - p.y;
+            let distance = Math.sqrt(dx * dx + dy * dy);
+            if (distance < mouse.radius) {
+                p.x -= dx / 20;
+                p.y -= dy / 20;
+            }
+
+            ctx.fillStyle = particleColor;
+            ctx.beginPath();
+            ctx.arc(p.x, p.y, p.size, 0, Math.PI * 2);
+            ctx.fill();
+
+            // --- NEW: Draw lines between particles ---
+            for (let j = i; j < particles.length; j++) {
+                const p2 = particles[j];
+                const dx = p.x - p2.x;
+                const dy = p.y - p2.y;
+                const distance = Math.sqrt(dx * dx + dy * dy);
+                if (distance < 120) {
+                    ctx.beginPath();
+                    ctx.strokeStyle = lineColor;
+                    ctx.lineWidth = 0.5;
+                    ctx.moveTo(p.x, p.y);
+                    ctx.lineTo(p2.x, p2.y);
+                    ctx.stroke();
+                }
+            }
+        });
+
+        requestAnimationFrame(animateParticles);
     }
 
-    updateAnalytics();
+    // Initialize and handle resize
+    window.addEventListener('resize', () => {
+        resizeCanvas();
+        createParticles();
+    });
 
-    // --- Plant Growth Animation ---
-    const stages = Array.from({ length: 7 }, (_, i) => document.getElementById(`stage-${i + 1}`));
-    let currentStage = 0;
+    // Kick off the animation
+    resizeCanvas();
+    createParticles();
+    animateParticles();
 
-    function growPlant(progress) {
-        const stage = Math.floor(progress * stages.length);
+    // --- REVISED: Tag-based Project Filtering System ---
+    const tagContainer = document.getElementById('tag-filter-container');
+    const projectCards = document.querySelectorAll('.project-grid .section-item');
+    const noResults = document.getElementById('no-results');
+    const clearFiltersEmptyBtn = document.getElementById('clear-filters-empty-btn');
 
-        if (stage !== currentStage && stage < stages.length) {
-            if (currentStage < stages.length && stages[currentStage]) {
-                stages[currentStage].style.opacity = '0';
-            }
-            if (stage < stages.length && stages[stage]) {
-                stages[stage].style.opacity = '1';
-            }
-            currentStage = stage;
+    // 1. Create and populate tags
+    const primarySkills = new Set();
+    projectCards.forEach(card => {
+        const skills = card.dataset.skills.split(',').map(s => s.trim());
+        if (skills.length > 0) {
+            primarySkills.add(skills[0]);
         }
-    }
+    });
 
-    window.addEventListener('scroll', () => {
-        const scrollHeight = document.documentElement.scrollHeight - window.innerHeight;
-        const scrolled = window.scrollY;
-        const progress = scrollHeight > 0 ? scrolled / scrollHeight : 0;
-        growPlant(progress);
+    // Add an "All" tag first
+    const allTag = document.createElement('button');
+    allTag.className = 'tag-filter-btn active';
+    allTag.textContent = 'All';
+    tagContainer.appendChild(allTag);
+
+    primarySkills.forEach(skill => {
+        const tag = document.createElement('button');
+        tag.className = 'tag-filter-btn';
+        tag.textContent = skill;
+        tagContainer.appendChild(tag);
     });
     
-    // Initialize plant on load
-    growPlant(0);
+    // --- MODIFIED: Upgraded filtering logic ---
+    let selectedSkills = new Set();
+    const tags = tagContainer.querySelectorAll('.tag-filter-btn');
 
-    // --- Watering Animation ---
-    const plantWrapper = document.getElementById('plantWrapper');
-    let isWatering = false;
+    tags.forEach(tag => {
+        tag.addEventListener('click', () => {
+            const skill = tag.textContent;
 
-    plantWrapper.addEventListener('click', () => {
-        if (isWatering) return;
-        isWatering = true;
-
-        // Create water drops
-        for (let i = 0; i < 5; i++) {
-            setTimeout(() => {
-                const drop = document.createElement('div');
-                drop.classList.add('water-drop');
-                drop.style.left = (40 + Math.random() * 20) + '%';
-                plantWrapper.appendChild(drop);
-
-                // Particles around drop
-                for (let j = 0; j < 3; j++) {
-                    const particle = document.createElement('div');
-                    particle.classList.add('water-particles');
-                    const angle = (Math.PI * 2 * j) / 3;
-                    const distance = 20;
-                    particle.style.setProperty('--tx', `${Math.cos(angle) * distance}px`);
-                    particle.style.setProperty('--ty', `${Math.sin(angle) * distance}px`);
-                    particle.style.left = '50%';
-                    particle.style.top = '-30px';
-                    plantWrapper.appendChild(particle);
-
-                    particle.addEventListener('animationend', () => particle.remove());
+            if (skill === 'All') {
+                selectedSkills.clear();
+            } else {
+                // Toggle selection for this tag
+                if (selectedSkills.has(skill)) {
+                    selectedSkills.delete(skill);
+                } else {
+                    selectedSkills.add(skill);
                 }
+            }
 
-                drop.addEventListener('animationend', () => drop.remove());
-            }, i * 150);
-        }
+            // Update active classes
+            tags.forEach(t => {
+                if (selectedSkills.has(t.textContent)) {
+                    t.classList.add('active');
+                } else {
+                    t.classList.remove('active');
+                }
+            });
 
-        setTimeout(() => {
-            isWatering = false;
-        }, 800);
+            // 'All' tag is active only if no other tags are selected
+            allTag.classList.toggle('active', selectedSkills.size === 0);
+
+            filterProjects();
+        });
     });
+
+    function filterProjects() {
+        let visibleCount = 0;
+        projectCards.forEach(card => {
+            const cardSkills = card.dataset.skills.split(',').map(s => s.trim());
+            // Show if no filters are active, or if the card has at least one of the selected skills
+            const isVisible = selectedSkills.size === 0 || [...selectedSkills].some(skill => cardSkills.includes(skill));
+
+            if (isVisible) {
+                card.classList.remove('hidden');
+                visibleCount++;
+            } else {
+                card.classList.add('hidden');
+            }
+        });
+        noResults.style.display = visibleCount === 0 ? 'block' : 'none';
+    }
+
+    // Clear filters when the "Clear Filters" button in the empty state is clicked
+    clearFiltersEmptyBtn.addEventListener('click', () => {
+        selectedSkills.clear();
+        tags.forEach(t => t.classList.remove('active'));
+        allTag.classList.add('active'); // Reactivate 'All' tag
+        filterProjects();
+    });
+
+
+
 // --- Fun Fact Typewriter Animation ---
     const funFactText = document.getElementById('funFactText');
     const funFacts = [
         "Can solve a Rubik's cube, but still pushes doors that say pull.",
         "Once tried to debug a rubber duck. The duck was not amused.",
         "My code is like a good joke – it needs a bit of explanation.",
-        "Fluent in JavaScript, Python, and sarcasm.",
+        "Fluent in SQL, Python, and sarcasm.",
         "Believes that the best way to predict the future is to code it."
     ];
 
