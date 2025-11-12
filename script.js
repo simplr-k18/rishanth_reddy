@@ -1,46 +1,96 @@
+// Defines SVG icons for use in the project.
+const iconMap = {
+    "github": `<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"></path></svg>`,
+    "linkedin": `<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"></path><rect x="2" y="9" width="4" height="12"></rect><circle cx="4" cy="4" r="2"></circle></svg>`,
+    "external-link": `<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path><polyline points="15 3 21 3 21 9"></polyline><line x1="10" y1="14" x2="21" y2="3"></line></svg>`,
+    "file-text": `<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="12" y1="13" x2="12" y2="17"></line><line x1="9" y1="15" x2="15" y2="15"></line></svg>`,
+    "play-circle": `<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"></circle><polygon points="10 8 16 12 10 16 10 8"></polygon></svg>`,
+    "mail": `<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path><polyline points="22 6 12 13 2 6"></polyline></svg>`,
+    "link": `<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg>`
+};
+
 document.addEventListener('DOMContentLoaded', () => {
+    window.scrollTo(0, 0);
+    initializePage();
+});
 
-    // --- Theme Toggle ---
+function initializePage() {
+    setupTheme();
+    setupHeader();
+    setupParticleBackground();
+    setupFloatingAnimation();
+    setupFunFact();
+    setupCustomCursor();
+    setupProjects();
+}
+
+function setupTheme() {
     const themeToggle = document.getElementById('themeToggle');
-
     const savedTheme = localStorage.getItem('theme') || 'dark';
-    const isDark = savedTheme === 'dark';
-
-    if (!isDark) {
+    
+    document.body.classList.remove('light-mode');
+    if (savedTheme === 'light') {
         document.body.classList.add('light-mode');
         themeToggle.textContent = '🌙';
+    } else {
+        themeToggle.textContent = '☀️';
     }
 
-    themeToggle.addEventListener('click', () => {
-        const isCurrentlyDark = !document.body.classList.contains('light-mode');
-        document.body.classList.toggle('light-mode');
-        themeToggle.textContent = isCurrentlyDark ? '🌙' : '☀️';
-        localStorage.setItem('theme', isCurrentlyDark ? 'light' : 'dark');
+    themeToggle.addEventListener('click', (e) => {
+        const isLight = document.body.classList.contains('light-mode');
+        const x = e.clientX;
+        const y = e.clientY;
+
+        if (!document.startViewTransition) {
+            // Fallback for browsers without View Transitions
+            document.body.classList.toggle('light-mode');
+            themeToggle.textContent = isLight ? '☀️' : '🌙';
+            localStorage.setItem('theme', isLight ? 'dark' : 'light');
+            return;
+        }
+
+        // Set CSS variables for the click position
+        document.documentElement.style.setProperty('--x', x + 'px');
+        document.documentElement.style.setProperty('--y', y + 'px');
+
+        // Start the View Transition
+        const transition = document.startViewTransition(() => {
+            document.body.classList.toggle('light-mode');
+            
+            const newIsLight = document.body.classList.contains('light-mode');
+            themeToggle.textContent = newIsLight ? '🌙' : '☀️';
+            localStorage.setItem('theme', newIsLight ? 'light' : 'dark');
+        });
     });
-    // --- NEW: Particle Animation ---
+}
+
+
+function setupHeader() {
+    const header = document.querySelector('.site-header');
+    if (!header) return;
+    window.addEventListener('scroll', () => {
+        header.classList.toggle('scrolled', window.scrollY > 10);
+    });
+}
+
+function setupParticleBackground() {
     const canvas = document.getElementById('particle-canvas');
+    if (!canvas) return;
     const ctx = canvas.getContext('2d');
+    let mouse = { x: null, y: null, radius: 100 };
+    let particles = [];
 
-    let mouse = {
-        x: null,
-        y: null,
-        radius: 100
-    };
-
-    window.addEventListener('mousemove', event => {
-        mouse.x = event.x;
-        mouse.y = event.y;
+    window.addEventListener('mousemove', e => {
+        mouse.x = e.x;
+        mouse.y = e.y;
     });
 
     window.addEventListener('mouseout', () => {
-        mouse.x = undefined;
-        mouse.y = undefined;
+        mouse.x = null;
+        mouse.y = null;
     });
 
-    let particles = [];
-
     function resizeCanvas() {
-        // --- MODIFIED: Handle high-DPI screens for sharpness ---
         const dpr = window.devicePixelRatio || 1;
         canvas.width = window.innerWidth * dpr;
         canvas.height = window.innerHeight * dpr;
@@ -51,7 +101,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     function createParticles() {
         particles = [];
-        const particleCount = window.innerWidth > 768 ? 150 : 50;
+        const particleCount = window.innerWidth > 768 ? 200 : 80;
         for (let i = 0; i < particleCount; i++) {
             particles.push({
                 x: Math.random() * window.innerWidth,
@@ -76,13 +126,14 @@ document.addEventListener('DOMContentLoaded', () => {
             if (p.x < 0 || p.x > window.innerWidth) p.vx *= -1;
             if (p.y < 0 || p.y > window.innerHeight) p.vy *= -1;
 
-            // --- NEW: Mouse interaction ---
-            let dx = mouse.x - p.x;
-            let dy = mouse.y - p.y;
-            let distance = Math.sqrt(dx * dx + dy * dy);
-            if (distance < mouse.radius) {
-                p.x -= dx / 20;
-                p.y -= dy / 20;
+            if (mouse.x && mouse.y) {
+                const dx = mouse.x - p.x;
+                const dy = mouse.y - p.y;
+                const distance = Math.sqrt(dx * dx + dy * dy);
+                if (distance < mouse.radius) {
+                    p.x -= dx / 20;
+                    p.y -= dy / 20;
+                }
             }
 
             ctx.fillStyle = particleColor;
@@ -90,8 +141,7 @@ document.addEventListener('DOMContentLoaded', () => {
             ctx.arc(p.x, p.y, p.size, 0, Math.PI * 2);
             ctx.fill();
 
-            // --- NEW: Draw lines between particles ---
-            for (let j = i; j < particles.length; j++) {
+            for (let j = i + 1; j < particles.length; j++) {
                 const p2 = particles[j];
                 const dx = p.x - p2.x;
                 const dy = p.y - p2.y;
@@ -110,33 +160,220 @@ document.addEventListener('DOMContentLoaded', () => {
         requestAnimationFrame(animateParticles);
     }
 
-    // Initialize and handle resize
     window.addEventListener('resize', () => {
         resizeCanvas();
         createParticles();
     });
 
-    // Kick off the animation
     resizeCanvas();
     createParticles();
     animateParticles();
+}
 
-    // --- REVISED: Tag-based Project Filtering System ---
+function setupFloatingAnimation() {
+    const style = document.createElement('style');
+    style.textContent = `
+        @keyframes floatingMotion {
+            0% { transform: translateY(0px); }
+            50% { transform: translateY(-20px); }
+            100% { transform: translateY(0px); }
+        }
+        .profile-image-placeholder {
+            animation: floatingMotion 6s ease-in-out infinite;
+        }
+    `;
+    document.head.appendChild(style);
+
+    const profileImage = document.getElementById('profileImage');
+    if (!profileImage) return;
+
+    let ticking = false;
+    window.addEventListener('scroll', () => {
+        if (!ticking) {
+            requestAnimationFrame(() => {
+                if (window.innerWidth > 640) {
+                    const scrollOffset = window.scrollY * 0.05;
+                    profileImage.style.filter = `drop-shadow(0 ${10 + scrollOffset}px 30px rgba(0, 0, 0, 0.4))`;
+                }
+                ticking = false;
+            });
+            ticking = true;
+        }
+    });
+}
+
+function setupCustomCursor() {
+    if (window.matchMedia("(max-width: 768px)").matches) {
+        return;
+    }
+
+    const cursorDot = document.querySelector('.cursor-dot');
+    const cursorOutline = document.querySelector('.cursor-outline');
+    if (!cursorDot || !cursorOutline) return;
+
+    window.addEventListener('mousemove', (e) => {
+        const posX = e.clientX;
+        const posY = e.clientY;
+
+        cursorDot.style.left = `${posX}px`;
+        cursorDot.style.top = `${posY}px`;
+
+        cursorOutline.animate({
+            left: `${posX}px`,
+            top: `${posY}px`
+        }, { duration: 500, fill: 'forwards' });
+    });
+
+    const interactiveElements = document.querySelectorAll(
+        'a, button, .project-card, .theme-toggle, .tag-filter-btn'
+    );
+
+    interactiveElements.forEach(el => {
+        el.addEventListener('mouseenter', () => {
+            cursorOutline.classList.add('grow');
+            cursorDot.style.width = '20px';
+            cursorDot.style.height = '20px';
+        });
+        el.addEventListener('mouseleave', () => {
+            cursorOutline.classList.remove('grow');
+            cursorDot.style.width = '8px';
+            cursorDot.style.height = '8px';
+        });
+    });
+}
+
+function setupFunFact() {
+    const funFactText = document.getElementById('funFactText');
+    if (!funFactText) return;
+
+    const funFacts = [
+        "Built systems processing billions of records. Still Google 'git revert vs reset'",
+        "Saved teams 100+ hrs/week with automation. Spend 2 hrs/week organizing Notion",
+        "Data architect by day. Figma perfectionist by night",
+        "Fluent in SQL, Python, and explaining tech to executives",
+        "My code is well-documented. My side projects folder is chaos",
+        "I design data models and Figma prototypes with equal obsession",
+        "First principles thinker. Second coffee drinker"
+    ];
+
+    let factIndex = 0;
+    let charIndex = 0;
+    let isDeleting = false;
+
+    function typeFunFact() {
+        const currentFact = funFacts[factIndex];
+        let delay = isDeleting ? 50 : 100;
+
+        if (isDeleting) {
+            funFactText.textContent = currentFact.substring(0, charIndex - 1);
+            charIndex--;
+        } else {
+            funFactText.textContent = currentFact.substring(0, charIndex + 1);
+            charIndex++;
+        }
+
+        if (!isDeleting && charIndex === currentFact.length) {
+            delay = 2000;
+            isDeleting = true;
+        } else if (isDeleting && charIndex === 0) {
+            isDeleting = false;
+            factIndex = (factIndex + 1) % funFacts.length;
+        }
+
+        setTimeout(typeFunFact, delay);
+    }
+
+    typeFunFact();
+}
+
+let allProjects = [];
+
+function setupProjects() {
+    const projectGrid = document.getElementById('project-grid');
+    if (!projectGrid) return;
+
+    fetch('data/projects.json')
+        .then(response => {
+            if (!response.ok) {
+                throw new Error(`HTTP error! status: ${response.status}`);
+            }
+            return response.json();
+        })
+        .then(data => {
+            if (!data || !data.projects) {
+                console.error('Invalid project data format');
+                return;
+            }
+            allProjects = data.projects;
+            renderProjects(allProjects);
+            setupProjectFilters();
+        })
+        .catch(error => {
+            console.error('Error loading projects:', error);
+            projectGrid.innerHTML = '<p style="color: var(--text-tertiary);">Could not load projects. Please check the data file.</p>';
+        });
+}
+
+function renderProjects(projects) {
+    const projectGrid = document.getElementById('project-grid');
+    if (!projectGrid) return;
+    projectGrid.innerHTML = '';
+
+    projects.forEach((project, index) => {
+        const card = document.createElement('div');
+        card.className = 'project-card';
+        card.dataset.skills = project.skills.join(',');
+        card.dataset.index = index;
+
+        const linksHTML = project.links.map(link => {
+            const icon = iconMap[link.icon] || iconMap["link"];
+            return `<a href="${link.url}" target="_blank" rel="noopener noreferrer" class="card-icon" aria-label="${link.type}" title="${link.type}">${icon}</a>`;
+        }).join('');
+
+        card.innerHTML = `
+            <div class="card-media">
+                ${project.video 
+                    ? `<video src="${project.video}" loop muted autoplay playsinline style="width: 100%; height: 100%; object-fit: cover;"></video>`
+                    : `<img src="${project.image}" alt="${project.title}" style="width: 100%; height: 100%; object-fit: cover;" onerror="this.parentElement.style.display='none';">`
+                }
+            </div>
+            <div class="card-content">
+                <div class="card-header">
+                    <div class="item-title">${project.title}</div>
+                    <div class="item-description">${project.description}</div>
+                </div>
+                <div class="card-footer">
+                    <div class="card-links">
+                        ${linksHTML}
+                    </div>
+                    <span class="skill-label">${project.skills[0]}</span>
+                </div>
+            </div>
+        `;
+        
+        projectGrid.appendChild(card);
+    });
+}
+
+function setupProjectFilters() {
     const tagContainer = document.getElementById('tag-filter-container');
-    const projectCards = document.querySelectorAll('.project-grid .section-item');
+    const projectGrid = document.getElementById('project-grid');
     const noResults = document.getElementById('no-results');
-    const clearFiltersEmptyBtn = document.getElementById('clear-filters-empty-btn');
+    const clearFiltersBtn = document.getElementById('clear-filters-empty-btn');
 
-    // 1. Create and populate tags
+    if (!tagContainer || !projectGrid || !noResults || !clearFiltersBtn) {
+        return;
+    }
+
     const primarySkills = new Set();
-    projectCards.forEach(card => {
-        const skills = card.dataset.skills.split(',').map(s => s.trim());
-        if (skills.length > 0) {
-            primarySkills.add(skills[0]);
+    allProjects.forEach(project => {
+        if (project.skills && project.skills.length > 0) {
+            primarySkills.add(project.skills[0]);
         }
     });
 
-    // Add an "All" tag first
+    tagContainer.innerHTML = '';
+    
     const allTag = document.createElement('button');
     allTag.className = 'tag-filter-btn active';
     allTag.textContent = 'All';
@@ -148,47 +385,16 @@ document.addEventListener('DOMContentLoaded', () => {
         tag.textContent = skill;
         tagContainer.appendChild(tag);
     });
-    
-    // --- MODIFIED: Upgraded filtering logic ---
+
     let selectedSkills = new Set();
     const tags = tagContainer.querySelectorAll('.tag-filter-btn');
 
-    tags.forEach(tag => {
-        tag.addEventListener('click', () => {
-            const skill = tag.textContent;
-
-            if (skill === 'All') {
-                selectedSkills.clear();
-            } else {
-                // Toggle selection for this tag
-                if (selectedSkills.has(skill)) {
-                    selectedSkills.delete(skill);
-                } else {
-                    selectedSkills.add(skill);
-                }
-            }
-
-            // Update active classes
-            tags.forEach(t => {
-                if (selectedSkills.has(t.textContent)) {
-                    t.classList.add('active');
-                } else {
-                    t.classList.remove('active');
-                }
-            });
-
-            // 'All' tag is active only if no other tags are selected
-            allTag.classList.toggle('active', selectedSkills.size === 0);
-
-            filterProjects();
-        });
-    });
-
     function filterProjects() {
         let visibleCount = 0;
+        const projectCards = document.querySelectorAll('.project-card');
+        
         projectCards.forEach(card => {
             const cardSkills = card.dataset.skills.split(',').map(s => s.trim());
-            // Show if no filters are active, or if the card has at least one of the selected skills
             const isVisible = selectedSkills.size === 0 || [...selectedSkills].some(skill => cardSkills.includes(skill));
 
             if (isVisible) {
@@ -198,65 +404,39 @@ document.addEventListener('DOMContentLoaded', () => {
                 card.classList.add('hidden');
             }
         });
+
         noResults.style.display = visibleCount === 0 ? 'block' : 'none';
     }
 
-    // Clear filters when the "Clear Filters" button in the empty state is clicked
-    clearFiltersEmptyBtn.addEventListener('click', () => {
-        selectedSkills.clear();
-        tags.forEach(t => t.classList.remove('active'));
-        allTag.classList.add('active'); // Reactivate 'All' tag
-        filterProjects();
+    tags.forEach(tag => {
+        tag.addEventListener('click', () => {
+            const skill = tag.textContent;
+
+            if (skill === 'All') {
+                selectedSkills.clear();
+            } else {
+                if (selectedSkills.has(skill)) {
+                    selectedSkills.delete(skill);
+                } else {
+                    selectedSkills.add(skill);
+                }
+            }
+
+            tags.forEach(t => {
+                const isActive = (t.textContent === 'All' && selectedSkills.size === 0) || selectedSkills.has(t.textContent);
+                t.classList.toggle('active', isActive);
+            });
+            
+            allTag.classList.toggle('active', selectedSkills.size === 0);
+
+            filterProjects();
+        });
     });
 
-
-
-// --- Fun Fact Typewriter Animation ---
-    const funFactText = document.getElementById('funFactText');
-    const funFacts = [
-        "Can solve a Rubik's cube, but still pushes doors that say pull.",
-        "Once tried to debug a rubber duck. The duck was not amused.",
-        "My code is like a good joke – it needs a bit of explanation.",
-        "Fluent in SQL, Python, and sarcasm.",
-        "Believes that the best way to predict the future is to code it."
-    ];
-
-    let factIndex = 0;
-    let charIndex = 0;
-    let isDeleting = false;
-    const typingSpeed = 100;
-    const deletingSpeed = 50;
-    const pauseDuration = 2000; // 2-second pause after typing a fact
-
-    function typeFunFact() {
-        const currentFact = funFacts[factIndex];
-        let delay = typingSpeed;
-
-        if (isDeleting) {
-            // Deleting text
-            funFactText.textContent = currentFact.substring(0, charIndex - 1);
-            charIndex--;
-            delay = deletingSpeed;
-        } else {
-            // Typing text
-            funFactText.textContent = currentFact.substring(0, charIndex + 1);
-            charIndex++;
-        }
-
-        // Check if the sentence is fully typed or deleted
-        if (!isDeleting && charIndex === currentFact.length) {
-            // Pause at the end of the sentence, then start deleting
-            delay = pauseDuration;
-            isDeleting = true;
-        } else if (isDeleting && charIndex === 0) {
-            // Move to the next fact after deleting
-            isDeleting = false;
-            factIndex = (factIndex + 1) % funFacts.length; // Loop back to the start
-        }
-
-        setTimeout(typeFunFact, delay);
-    }
-
-    // Start the animation
-    typeFunFact();
-});
+    clearFiltersBtn.addEventListener('click', () => {
+        selectedSkills.clear();
+        tags.forEach(t => t.classList.remove('active'));
+        allTag.classList.add('active');
+        filterProjects();
+    });
+}

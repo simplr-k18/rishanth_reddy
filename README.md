@@ -1,1 +1,3 @@
 **(https://simplr-k18.github.io/rishanth_reddy/)**
+
+Thanks for stopping by!

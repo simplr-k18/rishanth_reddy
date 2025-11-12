@@ -3,26 +3,46 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Rishanth Gautham Kalicheti</title>
+    <title>Rishanth Gautham Kalicheti - Data Engineer & Product Thinker</title>
+    <meta name="description" content="Data engineer building products people want to use. 5 years creating systems that process billions of records and save teams 100+ hours per week.">
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
+    <div class="cursor-dot"></div>
+    <div class="cursor-outline"></div>
+
+    <header class="site-header">
+        <div class="container">
+            <div class="header-content">
+                <a href="#" class="site-title">Rishanth Kalicheti</a>
+                <nav class="site-nav">
+                    <span class="nav-label">Connect:</span>
+                    <div class="nav-links">
+                        <a href="https://github.com/simplr-k18" target="_blank" rel="noopener noreferrer" class="contact-link" data-link-type="github"><span class="link-text">GitHub</span></a>
+                        <a href="https://linkedin.com/in/rishanth-gautam" target="_blank" rel="noopener noreferrer" class="contact-link" data-link-type="linkedin"><span class="link-text">LinkedIn</span></a>
+                        <a href="mailto:rishanthkalicheti@gmail.com" class="contact-link" data-link-type="mail"><span class="link-text">Email</span></a>
+                        <a href="assets/docs/Rishanth_Kalicheti_Resume.pdf" target="_blank" rel="noopener noreferrer" class="contact-link" data-link-type="file-text"><span class="link-text">Resume</span></a>
+                    </div>
+                </nav>
+            </div>
+        </div>
+    </header>
+    
     <canvas id="particle-canvas"></canvas>
-    <button class="theme-toggle" id="themeToggle">☀️</button>
+    <button class="theme-toggle" id="themeToggle" aria-label="Toggle theme">☀️</button>
 
     <div class="container">
-        <!-- New Hero Layout -->
         <div class="hero-layout">
             <div class="hero-content-column">
                 <h1>Rishanth Gautham Kalicheti</h1>
-                <p class="status">Love doing both Product & Engineering...</p>
+                <p class="status">I build data systems that help people make better decisions with confidence</p>
                 <div class="fun-fact">
-                    <p> > <span id="funFactText"></span><span class="cursor">|</span></p>
+                    <p>> <span id="funFactText"></span><span class="cursor">|</span></p>
                 </div>
             </div>
             <div class="hero-image-column">
                 <div class="profile-image-placeholder" id="profileImage">
-                    <img src="assets/images/profile.jpg" alt="A photo of Rishanth Gautham Kalicheti">
+                    <img src="assets/images/profile.jpg" alt="Rishanth Gautham Kalicheti" onerror="this.style.display='none'; this.parentElement.style.background='var(--bg-secondary)';">
                 </div>
             </div>
         </div>
@@ -30,9 +50,23 @@
         <section>
             <h2>About</h2>
             <div class="section-content">
-                I like turning messy data and complex problems into things people can actually use. I’ve spent years wiring systems together, building models, and shipping dashboards.. but what I care about most is how the work helps a person make a better call five minutes faster.
+                I believe great engineering starts with a simple question: <strong>What decision is this person trying to make?</strong>
                 <br><br>
-                I think like a product person: I sketch simple flows, test small ideas, and ask real users what they need. I’m not one of those people who only loves tech — I care about usefulness, clarity, and the quiet satisfaction when something finally clicks.
+                Over the past 5 years, I've built data systems processing billions of records across banking and global procurement. But the work I'm most proud of isn't the scale-it's the clarity. The <strong>100+ hours per week</strong> saved because teams no longer hunt for data. The <strong>80% improvement in data quality</strong> because we changed how we thought about the problem, not just how we coded the solution.
+                <br><br>
+                At Baxter International, I built the company's first unified data product by starting with the fundamental problem: procurement teams across 4 continents couldn't trust their own data. I didn't just integrate 10+ systems-I interviewed stakeholders, understood their workflows, and designed a product that 200+ people now rely on daily. At First Citizens Bank, I redesigned core banking architecture by asking: what if we organized data around how people use it, not how systems store it? The result: Customer 360 and 5 other data products that became the foundation for enterprise decision-making.
+                <br><br>
+                <strong>My approach combines three principles:</strong>
+                <br><br>
+                <strong>1. Start with the problem, not the technology</strong> - I interview users, map workflows, understand pain points before writing code. Sometimes the best solution isn't more data-it's better clarity.
+                <br><br>
+                <strong>2. Build for humans, then optimize for systems</strong> - I taught myself Figma to design better interfaces. I create custom dashboards that follow design systems. I believe tools should feel intuitive, not intimidating.
+                <br><br>
+                <strong>3. Measure what matters</strong> - Not lines of code or query performance alone, but: Did this save time? Did this improve decisions? Do people actually want to use this?
+                <br><br>
+                This philosophy has led me to create procurement taxonomies (interviewing 30+ stakeholders), build custom internal tools (HTML/CSS/JS, self-taught), and design data products that teams across finance, operations, and C-suite rely on. I work at the intersection of engineering rigor and human-centered design.
+                <br><br>
+                <strong>>> Currently exploring:</strong> How AI can help procurement teams make better sourcing decisions faster-not by replacing human judgment, but by augmenting it with better information at the right moment.
             </div>
         </section>
 
@@ -40,82 +74,80 @@
             <h2>Work</h2>
             <div class="section-content">
                 <div class="section-item">
-                    <div class="item-title">Baxter International | Analytical Engineer</div>
-                    <div class="item-subtitle">(Aug 2023 – * )</div>
-                    <div class="item-description">At Baxter, I helped bring scattered data from AWS, SAP, Oracle, and other systems into one clear picture for teams across regions. I built pipelines and dashboards that made reporting faster and more trustworthy. My focus was always on making data useful for people — helping procurement and finance see the same truth and make better decisions together.</div>
+                    <div class="item-title">Baxter International | Senior Analytical Engineer & Data Architect</div>
+                    <div class="item-subtitle">(Aug 2023 – Present | Bangalore, India)</div>
+                    <div class="item-description">
+                        <strong>The Challenge:</strong> Baxter's procurement data was scattered across JDE, GME, Coupa, Maximo, Concur, SAP, and dozens of internal apps spanning APAC, EMEA, LATAM, and North America. Nobody had a single source of truth. Reports took days to compile manually. Finance and procurement teams were making critical decisions with incomplete information.
+                        <br><br>
+                        <strong>What I Built:</strong>
+                        <br><br>
+                        • <strong>First Enterprise Data Product (Spend Analytics Platform):</strong> Designed and architected Baxter's first unified data product using Starburst + AWS S3 data lake. Built end-to-end from requirements → data modeling → engineering → dashboards → user training. Unified data from 10+ source systems across 4 regions into a single queryable interface supporting 20+ user groups.
+                        <br><br>
+                        • <strong>Automated Reporting Pipeline:</strong> Created Python scripts to auto-generate weekly/monthly/quarterly reports from Tableau/Power BI. Reduced manual reporting work from 15+ hours/week to 30 minutes.
+                        <br><br>
+                        • <strong>Supplier Master Data Revolution:</strong> Analyzed and integrated external data systems (D&B, Supplier.io) from scratch. Created matching rules that introduced the concept of parent suppliers and legal entities, resulting in 80% improvement in supplier data quality.
+                        <br><br>
+                        • <strong>Procurement Taxonomy & Hierarchy:</strong> Built procurement hierarchy models by interviewing 30+ stakeholders. Created the single source of truth for procurement classification across the enterprise.
+                        <br><br>
+                        • <strong>M&A Integration:</strong> Led data integration for Hillrom acquisition and Kidney Care spin-off. Worked directly with C-suite on both initiatives.
+                        <br><br>
+                        • <strong>Internal Tools (Self-Taught):</strong> Created custom procurement dashboard catalog using HTML/CSS/JS following Baxter design standards. Built modern, searchable interface for 40+ previously scattered dashboards.
+                        <br><br>
+                        <strong>The Impact:</strong> 500M+ records processed daily | 40% reduction in reporting time | 94% forecast accuracy | 200+ stakeholders relying on unified data | 100+ hours/week saved across teams
+                        <br><br>
+                        <em>Technologies: AWS (S3, Glue, Athena), Starburst, Power BI, Tableau, Python, SQL, Bitbucket, Jira</em>
+                    </div>
                 </div>
 
                 <div class="section-item">
-                    <div class="item-title">Silicon Valley Bank | Data Architect & Modeling Lead</div>
-                    <div class="item-subtitle">(Dec 2019 – Aug 2023)</div>
-                    <div class="item-description">At FCB, I worked with multiple business units to reshape how data flows across the bank. I designed data models and architectures that made analytics simpler and more reliable. Beyond the tech, I enjoyed helping teams connect their work — showing how good data design can make everyone’s job easier and more confident.</div>
+                    <div class="item-title">First Citizens Bank (Silicon Valley Bank) | Data Architect & Modeling Lead</div>
+                    <div class="item-subtitle">(Aug 2019 – Aug 2023 | Chennai, India)</div>
+                    <div class="item-description">
+                        <strong>The Journey:</strong> Started doing manual data mapping in Excel. Got frustrated with inefficiency, taught myself Power Automate + M365 suite, and built automation that eliminated 80% of manual work. This freed the team to focus on actual analysis instead of data wrangling.
+                        <br><br>
+                        <strong>Enterprise Data Architecture:</strong> Maintained data models across 12+ business units using ER Studio. Led cloud migration from legacy warehouse architecture to product-based design. Organized repository with dev/test/prod structure that became the standard across the enterprise.
+                        <br><br>
+                        <strong>Data Products I Designed from Scratch:</strong>
+                        <br><br>
+                        • <strong>Customer 360</strong> - Main source of truth for Sales, Marketing, and C-suite across Commercial, Private Banking, Life Sciences, and Capital divisions. Increased cross-team data usage by 60%.
+                        <br><br>
+                        • <strong>Investor 360</strong> - Comprehensive view of institutional investors and relationships for better portfolio management.
+                        <br><br>
+                        • <strong>Loans, FX, Credit Card & Credit Line Data Products</strong> - End-to-end analytics platforms for risk, treasury, and consumer credit teams.
+                        <br><br>
+                        <strong>Master Data Management Innovation:</strong> Identified that customer matching at legal entity level was creating thousands of false negatives. Proposed changing matching hierarchy to Parent Entity → Legal Entity. Result: <strong>80% increase in match rates, saving 100+ man-hours per week</strong> previously spent on manual matching.
+                        <br><br>
+                        <strong>Cross-Functional Leadership:</strong> Part of Architecture and Center of Excellence teams. Improved data quality across 4 business units working with Agile and SAFe teams. Led governance initiatives for metadata, lineage, and reference data.
+                        <br><br>
+                        <strong>Scale:</strong> Worked with billions of rows across multiple banking products, maintaining 99.9%+ data quality SLAs for critical financial reporting.
+                        <br><br>
+                        <em>Technologies: ER Studio, SQL, Python, M365, Informatica, Airflow, IICS, BODS, AWS, Tableau, Jira</em>
+                    </div>
                 </div>
             </div>
         </section>
 
         <section>
-            <!-- MODIFIED: Project Header and new Tag Filter -->
-            <div class="project-header">
-                <h2>Projects</h2>
-            </div>
+            <h2>Projects</h2>
             <div id="tag-filter-container" class="tag-filter-container"></div>
 
-            <div class="project-grid">
-                <div class="section-item" data-skills="Web Development,JavaScript">
-                    <a href="https://simplr-k18.github.io/portfolio/" target="_blank" rel="noopener noreferrer" class="item-title-link">Portfolio Website</a>
-                    <div class="item-description">A showcase of my work and projects, demonstrating my approach to clean design and functional code.</div>
-                    <div class="card-footer">
-                        <a href="https://github.com/simplr-k18/portfolio" target="_blank" rel="noopener noreferrer" class="card-icon" aria-label="GitHub repository for Portfolio Website"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"></path></svg></a>
-                        <span class="skill-label">Web Development</span>
-                    </div>
+            <div class="projects-container">
+                <div class="project-grid" id="project-grid">
                 </div>
 
-                <div class="section-item" data-skills="Product Manager,AI">
-                    <a href="https://github.com/simplr-k18/DreamLens" target="_blank" rel="noopener noreferrer" class="item-title-link">DreamLens</a>
-                    <div class="item-description">Helps kids imagine positive futures. The goal is simple: spark curiosity through joyful and meaningful visuals.</div>
-                    <div class="card-footer">
-                        <a href="https://github.com/simplr-k18/DreamLens" target="_blank" rel="noopener noreferrer" class="card-icon" aria-label="GitHub repository for DreamLens"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"></path></svg></a>
-                        <span class="skill-label">Product Manager</span>
-                    </div>
+                <div id="no-results" class="no-results" style="display: none;">
+                    <p>No projects match the selected filters.</p>
+                    <button id="clear-filters-empty-btn">Clear Filters</button>
                 </div>
-
-                <div class="section-item" data-skills="Product Manager,AI">
-                    <a href="https://github.com/simplr-k18/OPTIMA" target="_blank" rel="noopener noreferrer" class="item-title-link">Optima</a>
-                    <div class="item-description">AI that sees your space, understands your taste, and curates everything to fit your life.</div>
-                    <div class="card-footer">
-                        <a href="https://github.com/simplr-k18/OPTIMA" target="_blank" rel="noopener noreferrer" class="card-icon" aria-label="GitHub repository for Optima"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"></path></svg></a>
-                        <span class="skill-label">Product Manager</span>
-                    </div>
-                </div>
-
-                <div class="section-item" data-skills="Data Modeling,Data Engineering">
-                    <a href="#" target="_blank" rel="noopener noreferrer" class="item-title-link">Product Recommendation Engine</a>
-                    <div class="item-description">Active contributor to the developer community.</div>
-                    <div class="card-footer">
-                        <a href="#" target="_blank" rel="noopener noreferrer" class="card-icon" aria-label="GitHub repository for Product Recommendation Engine"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"></path></svg></a>
-                        <span class="skill-label">Data Modeling</span>
-                    </div>
-                </div>
-            </div>
-            <!-- NEW: Empty state for filters -->
-            <div id="no-results" class="no-results" style="display: none;">
-                <p>No projects match the selected filters.</p>
-                <button id="clear-filters-empty-btn">Clear Filters</button>
-            </div>
-        </section>
-
-        <section>
-            <h2>Get In Touch</h2>
-            <div class="contact-section">
-                <a href="https://github.com/simplr-k18" target="_blank" rel="noopener noreferrer" class="contact-link">GitHub</a>
-                <a href="https://linkedin.com/in/rishanth-gautam" target="_blank" rel="noopener noreferrer" class="contact-link">LinkedIn</a>
-                <a href="mailto:rishanthkalicheti@gmail.com" class="contact-link">Email</a>
-                <a href="assets/docs/Rishi_6YoE_Engineer.pdf" target="_blank" rel="noopener noreferrer" class="contact-link">Dribble</a>
-                <a href="https://x.com/StayUNnoticed" target="_blank" rel="noopener noreferrer" class="contact-link">Twitter (X)</a>
-                <a href="assets/docs/Rishi_6YoE_Engineer.pdf" target="_blank" rel="noopener noreferrer" class="contact-link">Resume</a>
             </div>
         </section>
     </div>
+
+    <footer class="site-footer-bottom">
+        <div class="container">
+            <p>&copy; 2025 Rishanth Gautham Kalicheti</p>
+        </div>
+    </footer>
 
     <script src="script.js" defer></script>
 </body>

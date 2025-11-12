@@ -1,0 +1,194 @@
+{
+  "projects": [
+    {
+      "id": 1,
+      "title": "Portfolio Website",
+      "description": "A showcase of my work and projects, demonstrating my approach to clean design and functional code.",
+      "skills": ["Web Development", "JavaScript"],
+      "links": [
+        {
+          "type": "github",
+          "url": "https://github.com/simplr-k18/rishanth_reddy",
+          "icon": "github"
+        },
+        {
+          "type": "demo",
+          "url": "https://simplr-k18.github.io/rishanth_reddy/",
+          "icon": "external-link"
+        }
+      ],
+      "image": "#",
+      "video": ""
+    },
+    {
+      "id": 2,
+      "title": "DreamLens",
+      "description": "Helps kids imagine positive futures. The goal is simple: spark curiosity through joyful and meaningful visuals.",
+      "skills": ["Product Manager", "AI"],
+      "links": [
+        {
+          "type": "github",
+          "url": "https://github.com/simplr-k18/DreamLens",
+          "icon": "github"
+        }
+      ],
+      "image": "#",
+      "video": ""
+    },
+    {
+      "id": 3,
+      "title": "Optima",
+      "description": "AI that sees your space, understands your taste, and curates everything to fit your life.",
+      "skills": ["Product Manager", "AI"],
+      "links": [
+        {
+          "type": "github",
+          "url": "https://github.com/simplr-k18/OPTIMA",
+          "icon": "github"
+        }
+      ],
+      "image": "#",
+      "video": ""
+    },
+    {
+      "id": 4,
+      "title": "Product Recommendation Engine",
+      "description": "Active contributor to the developer community.",
+      "skills": ["Data Modeling"],
+      "links": [
+        {
+          "type": "substack",
+          "url": "https://substack.com/your-link",
+          "icon": "mail"
+        },
+        {
+          "type": "youtube",
+          "url": "https://youtube.com/your-link",
+          "icon": "play-circle"
+        }
+      ],
+      "image": "#",
+      "video": ""
+    },
+    {
+      "id": 5,
+      "title": "AI for everybody",
+      "description": "AI that sees your space, understands your taste, and curates everything to fit your life.",
+      "skills": ["Product Manager", "AI"],
+      "links": [
+        {
+          "type": "github",
+          "url": "https://github.com/simplr-k18/OPTIMA",
+          "icon": "github"
+        }
+      ],
+      "image": "#",
+      "video": ""
+    },
+    {
+      "id": 6,
+      "title": "Thinking Machines",
+      "description": "AI that sees your space, understands your taste, and curates everything to fit your life.",
+      "skills": ["Product Manager", "AI"],
+      "links": [
+        {
+          "type": "github",
+          "url": "https://github.com/simplr-k18/OPTIMA",
+          "icon": "github"
+        }
+      ],
+      "image": "#",
+      "video": ""
+    },
+    {
+      "id": 7,
+      "title": "MakeOver",
+      "description": "AI that sees your space, understands your taste, and curates everything to fit your life.",
+      "skills": ["Product Manager", "AI"],
+      "links": [
+        {
+          "type": "github",
+          "url": "https://github.com/simplr-k18/OPTIMA",
+          "icon": "github"
+        }
+      ],
+      "image": "#",
+      "video": ""
+    },
+    {
+      "id": 8,
+      "title": "HyperVision",
+      "description": "AI that sees your space, understands your taste, and curates everything to fit your life.",
+      "skills": ["Product Manager", "AI"],
+      "links": [
+        {
+          "type": "github",
+          "url": "https://github.com/simplr-k18/OPTIMA",
+          "icon": "github"
+        }
+      ],
+      "image": "#",
+      "video": ""
+    },
+    {
+      "id": 9,
+      "title": "TeslaBot",
+      "description": "AI that sees your space, understands your taste, and curates everything to fit your life.",
+      "skills": ["Data Engineering", "AI"],
+      "links": [
+        {
+          "type": "github",
+          "url": "https://github.com/simplr-k18/OPTIMA",
+          "icon": "github"
+        }
+      ],
+      "image": "#",
+      "video": ""
+    },
+    {
+      "id": 10,
+      "title": "Farming",
+      "description": "AI that sees your space, understands your taste, and curates everything to fit your life.",
+      "skills": ["Farming"],
+      "links": [
+        {
+          "type": "github",
+          "url": "https://github.com/simplr-k18/OPTIMA",
+          "icon": "github"
+        }
+      ],
+      "image": "#",
+      "video": ""
+    },
+    {
+      "id": 11,
+      "title": "Twitter remake",
+      "description": "AI that sees your space, understands your taste, and curates everything to fit your life.",
+      "skills": ["Product Designer"],
+      "links": [
+        {
+          "type": "github",
+          "url": "https://github.com/simplr-k18/OPTIMA",
+          "icon": "github"
+        }
+      ],
+      "image": "#",
+      "video": ""
+    },
+    {
+      "id": 12,
+      "title": "Data Mining Project",
+      "description": "AI that sees your space, understands your taste, and curates everything to fit your life.",
+      "skills": ["Data Analytics", "AI"],
+      "links": [
+        {
+          "type": "github",
+          "url": "https://github.com/simplr-k18/OPTIMA",
+          "icon": "github"
+        }
+      ],
+      "image": "#",
+      "video": ""
+    }
+  ]
+}
