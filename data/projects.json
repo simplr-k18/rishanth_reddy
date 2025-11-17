@@ -52,19 +52,14 @@
     },
     {
       "id": 4,
-      "title": "Product Recommendation Engine",
-      "description": "Active contributor to the developer community.",
-      "skills": ["Data Modeling"],
+      "title": "Sama",
+      "description": "The Technology We Own, Not the Attention We Rent.",
+      "skills": ["Product Manager"],
       "links": [
         {
           "type": "substack",
-          "url": "https://substack.com/your-link",
-          "icon": "mail"
-        },
-        {
-          "type": "youtube",
-          "url": "https://youtube.com/your-link",
-          "icon": "play-circle"
+          "url": "https://substack.com/home/post/p-178981833?source=queue",
+          "icon": "article"
         }
       ],
       "image": "#",
@@ -72,13 +67,13 @@
     },
     {
       "id": 5,
-      "title": "AI for everybody",
-      "description": "AI that sees your space, understands your taste, and curates everything to fit your life.",
+      "title": "Seedly",
+      "description": "A quiet push toward people who shape the future.",
       "skills": ["Product Manager", "AI"],
       "links": [
         {
           "type": "github",
-          "url": "https://github.com/simplr-k18/OPTIMA",
+          "url": "https://github.com/simplr-k18/Seedly",
           "icon": "github"
         }
       ],
@@ -87,14 +82,19 @@
     },
     {
       "id": 6,
-      "title": "Thinking Machines",
-      "description": "AI that sees your space, understands your taste, and curates everything to fit your life.",
+      "title": "ZenTouch",
+      "description": "Find your focus in the ripple. Be free from the need to grasp.",
       "skills": ["Product Manager", "AI"],
       "links": [
         {
           "type": "github",
-          "url": "https://github.com/simplr-k18/OPTIMA",
+          "url": "https://github.com/simplr-k18/ZenTouch",
           "icon": "github"
+        },
+        {
+          "type": "demo",
+          "url": "https://simplr-k18.github.io/ZenTouch/",
+          "icon": "external-link"
         }
       ],
       "image": "#",
@@ -102,9 +102,9 @@
     },
     {
       "id": 7,
-      "title": "MakeOver",
-      "description": "AI that sees your space, understands your taste, and curates everything to fit your life.",
-      "skills": ["Product Manager", "AI"],
+      "title": "Data Architect",
+      "description": "Repo containing various data architecture projects and case studies.",
+      "skills": ["Data Architect", "Data Modeling"],
       "links": [
         {
           "type": "github",
@@ -134,7 +134,7 @@
       "id": 9,
       "title": "TeslaBot",
       "description": "AI that sees your space, understands your taste, and curates everything to fit your life.",
-      "skills": ["Data Engineering", "AI"],
+      "skills": ["Analytics", "AI"],
       "links": [
         {
           "type": "github",
@@ -179,7 +179,7 @@
       "id": 12,
       "title": "Data Mining Project",
       "description": "AI that sees your space, understands your taste, and curates everything to fit your life.",
-      "skills": ["Data Analytics", "AI"],
+      "skills": ["Analytics", "AI"],
       "links": [
         {
           "type": "github",
