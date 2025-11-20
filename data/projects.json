@@ -132,13 +132,13 @@
     },
     {
       "id": 9,
-      "title": "TeslaBot",
-      "description": "AI that sees your space, understands your taste, and curates everything to fit your life.",
-      "skills": ["Analytics", "AI"],
+      "title": "supplier-matching-engine",
+      "description": "Multi-alogrithm matching MDM. Inspired by the need for affordable, effective Master Data Management tools..",
+      "skills": ["Data Architect", "AI"],
       "links": [
         {
           "type": "github",
-          "url": "https://github.com/simplr-k18/OPTIMA",
+          "url": "https://github.com/simplr-k18/supplier-matching-engine",
           "icon": "github"
         }
       ],
@@ -147,13 +147,13 @@
     },
     {
       "id": 10,
-      "title": "Farming",
-      "description": "AI that sees your space, understands your taste, and curates everything to fit your life.",
-      "skills": ["Farming"],
+      "title": "NeuroFace-3D",
+      "description": " From photo to a fully-formed 3D mesh grow dot-by-dot, line-by-line smooth, precise, and beautifully responsive",
+      "skills": ["Product Manager", "AI"],
       "links": [
         {
           "type": "github",
-          "url": "https://github.com/simplr-k18/OPTIMA",
+          "url": "https://github.com/simplr-k18/NeuroFace-3D",
           "icon": "github"
         }
       ],
