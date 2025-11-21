@@ -102,13 +102,13 @@
     },
     {
       "id": 7,
-      "title": "Data Architect",
-      "description": "Repo containing various data architecture projects and case studies.",
-      "skills": ["Data Architect", "Data Modeling"],
+      "title": "Arch-with-intelligence",
+      "description": "LLM-powered spend analytics with natural language queries. Integrates SAP/Coupa/Oracle data, detects risks automatically. Built with LLaMA 3.2, FastAPI, DuckDB.",
+      "skills": ["Data Architect"],
       "links": [
         {
           "type": "github",
-          "url": "https://github.com/simplr-k18/OPTIMA",
+          "url": "https://github.com/simplr-k18/procurement-intelligence",
           "icon": "github"
         }
       ],
