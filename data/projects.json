@@ -116,21 +116,6 @@
       "video": ""
     },
     {
-      "id": 8,
-      "title": "HyperVision",
-      "description": "AI that sees your space, understands your taste, and curates everything to fit your life.",
-      "skills": ["Product Manager", "AI"],
-      "links": [
-        {
-          "type": "github",
-          "url": "https://github.com/simplr-k18/OPTIMA",
-          "icon": "github"
-        }
-      ],
-      "image": "#",
-      "video": ""
-    },
-    {
       "id": 9,
       "title": "supplier-matching-engine",
       "description": "Multi-alogrithm matching MDM. Inspired by the need for affordable, effective Master Data Management tools..",
@@ -162,13 +147,13 @@
     },
     {
       "id": 11,
-      "title": "Twitter remake",
-      "description": "AI that sees your space, understands your taste, and curates everything to fit your life.",
-      "skills": ["Product Designer"],
+      "title": "Meeting Auditor",
+      "description": "An automated pipeline converting meeting audio into structured data. Uses Vector Search (RAG) to separate action items from fluff and calculates meeting cost vs value.",
+      "skills": ["Data Architect"],
       "links": [
         {
           "type": "github",
-          "url": "https://github.com/simplr-k18/OPTIMA",
+          "url": "https://github.com/simplr-k18/MeetingAuditor",
           "icon": "github"
         }
       ],
@@ -177,9 +162,9 @@
     },
     {
       "id": 12,
-      "title": "Data Mining Project",
-      "description": "AI that sees your space, understands your taste, and curates everything to fit your life.",
-      "skills": ["Analytics", "AI"],
+      "title": "Twitter remake",
+      "description": "Changing the way the world see twitter by implementing a fresh new design with features that users really want by solving their pain points.",
+      "skills": ["Product Designer"],
       "links": [
         {
           "type": "github",
