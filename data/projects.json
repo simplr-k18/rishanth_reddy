@@ -189,6 +189,21 @@
       ],
       "image": "#",
       "video": ""
+    },
+    {
+      "id": 13,
+      "title": "CAKE",
+      "description": "Context-Aware Knowledge Engine.",
+      "skills": ["Data Architect"],
+      "links": [
+        {
+          "type": "github",
+          "url": "https://github.com/simplr-k18/CAKE",
+          "icon": "github"
+        }
+      ],
+      "image": "assets/images/projects/01_cake_concept.png",
+      "video": ""
     }
   ]
 }
