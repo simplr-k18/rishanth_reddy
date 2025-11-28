@@ -22,6 +22,7 @@ function initializePage() {
     setupFloatingAnimation();
     setupFunFact();
     setupCustomCursor();
+    setupScrollAnimations(); // Added for scroll animations
     setupProjects();
 }
 
@@ -249,9 +250,9 @@ function setupFunFact() {
 
     const funFacts = [
         "Built systems processing billions of records. Still Google 'git revert vs reset'",
-        "Saved teams 100+ hrs/week with automation. Spend 2 hrs/week organizing Notion",
+        "Saved teams 100+ hrs/week with automation. Spend 2 hrs/week at Notion",
         "Data architect by day. Figma perfectionist by night",
-        "Fluent in SQL, Python, and explaining tech to executives",
+        "Fluent in SQL, Python, and Sarcasm",
         "My code is well-documented. My side projects folder is chaos",
         "I design data models and Figma prototypes with equal obsession",
         "First principles thinker. Second coffee drinker"
@@ -285,6 +286,49 @@ function setupFunFact() {
     }
 
     typeFunFact();
+}
+
+function setupScrollAnimations() {
+    const style = document.createElement('style');
+    style.textContent = `
+        .scroll-animate {
+            opacity: 0;
+            transform: translateY(40px);
+            transition: opacity 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275), transform 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+        .scroll-animate.is-visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        .project-card {
+            transition: transform 0.4s cubic-bezier(0.25, 0.8, 0.25, 1), box-shadow 0.4s cubic-bezier(0.25, 0.8, 0.25, 1);
+        }
+        .project-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 40px -15px rgba(0,0,0,0.2);
+        }
+        .project-card .card-media img, .project-card .card-media video {
+            transition: transform 0.5s cubic-bezier(0.25, 0.8, 0.25, 1);
+        }
+        .project-card:hover .card-media img, .project-card:hover .card-media video {
+            transform: scale(1.05);
+        }
+    `;
+    document.head.appendChild(style);
+
+    const observer = new IntersectionObserver((entries, observer) => {
+        entries.forEach((entry, index) => {
+            if (entry.isIntersecting) {
+                // Stagger the animation
+                setTimeout(() => {
+                    entry.target.classList.add('is-visible');
+                }, 150 * (parseInt(entry.target.dataset.index) % 3)); // Stagger based on column
+                observer.unobserve(entry.target);
+            }
+        });
+    }, { threshold: 0.1 });
+
+    // We will let renderProjects function add the class and observer
 }
 
 let allProjects = [];
@@ -322,7 +366,7 @@ function renderProjects(projects) {
 
     projects.forEach((project, index) => {
         const card = document.createElement('div');
-        card.className = 'project-card';
+        card.className = 'project-card scroll-animate'; // Added scroll-animate class
         card.dataset.skills = project.skills.join(',');
         card.dataset.index = index;
 
@@ -353,6 +397,21 @@ function renderProjects(projects) {
         `;
         
         projectGrid.appendChild(card);
+    });
+
+    // After rendering, find all elements that need to be animated and observe them.
+    const animatedElements = document.querySelectorAll('.scroll-animate');
+    const observer = new IntersectionObserver((entries, obs) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                entry.target.classList.add('is-visible');
+                obs.unobserve(entry.target);
+            }
+        });
+    }, { threshold: 0.1 });
+
+    animatedElements.forEach(el => {
+        observer.observe(el);
     });
 }
 
