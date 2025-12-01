@@ -24,6 +24,7 @@ function initializePage() {
     setupCustomCursor();
     setupScrollAnimations(); // Added for scroll animations
     setupProjects();
+    setupProjectCardHover();
 }
 
 function setupTheme() {
@@ -369,6 +370,7 @@ function renderProjects(projects) {
         card.className = 'project-card scroll-animate'; // Added scroll-animate class
         card.dataset.skills = project.skills.join(',');
         card.dataset.index = index;
+        card.style.animationDelay = `${(index % 6) * 150}ms`;
 
         const linksHTML = project.links.map(link => {
             const icon = iconMap[link.icon] || iconMap["link"];
@@ -413,6 +415,42 @@ function renderProjects(projects) {
     animatedElements.forEach(el => {
         observer.observe(el);
     });
+}
+
+function setupProjectCardHover() {
+    const projectGrid = document.getElementById('project-grid');
+    if (!projectGrid) return;
+
+    // Use event delegation for performance
+    projectGrid.addEventListener('mousemove', e => {
+        const card = e.target.closest('.project-card');
+        if (!card) return;
+
+        const rect = card.getBoundingClientRect();
+        const x = e.clientX - rect.left;
+        const y = e.clientY - rect.top;
+
+        const centerX = rect.width / 2;
+        const centerY = rect.height / 2;
+
+        const rotateX = ((y - centerY) / centerY) * -4; // Max rotation of -4deg to 4deg
+        const rotateY = ((x - centerX) / centerX) * 4;   // Max rotation of -4deg to 4deg
+
+        card.style.transform = `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) scale3d(1.02, 1.02, 1.02)`;
+    });
+
+    projectGrid.addEventListener('mouseleave', e => {
+        const cards = projectGrid.querySelectorAll('.project-card');
+        cards.forEach(card => {
+            card.style.transform = `perspective(1000px) rotateX(0) rotateY(0) scale3d(1, 1, 1)`;
+        });
+    }, true);
+
+    projectGrid.addEventListener('mouseenter', e => {
+        const card = e.target.closest('.project-card');
+        if (!card) return;
+        card.style.transition = 'transform 0.1s linear';
+    }, true);
 }
 
 function setupProjectFilters() {
