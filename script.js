@@ -7,7 +7,9 @@ const iconMap = {
     "play-circle": `<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"></circle><polygon points="10 8 16 12 10 16 10 8"></polygon></svg>`,
     "mail": `<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path><polyline points="22 6 12 13 2 6"></polyline></svg>`,
     "link": `<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg>`,
-    "article": `<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="16" y1="13" x2="8" y2="13"></line><line x1="16" y1="17" x2="8" y2="17"></line><line x1="10" y1="9" x2="8" y2="9"></line></svg>`
+    "article": `<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="16" y1="13" x2="8" y2="13"></line><line x1="16" y1="17" x2="8" y2="17"></line><line x1="10" y1="9" x2="8" y2="9"></line></svg>`,
+    "my-blog": `<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="16" y1="13" x2="8" y2="13"></line><line x1="16" y1="17" x2="8" y2="17"></line><line x1="10" y1="9" x2="8" y2="9"></line></svg>`,
+    "X": `<svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 1200 1227" fill="currentColor"><path d="M714.163 519.284L1160.89 0H1055.03L667.137 450.887L357.328 0H0L468.492 681.821L0 1226.37H105.866L515.491 750.218L842.672 1226.37H1200L714.163 519.284ZM569.165 687.828L521.697 619.934L144.011 79.6904H306.615L611.412 515.685L658.88 583.579L1055.08 1150.31H892.476L569.165 687.828Z"/></svg>`
    };
 
 document.addEventListener('DOMContentLoaded', () => {
@@ -70,10 +72,45 @@ function setupTheme() {
 
 function setupHeader() {
     const header = document.querySelector('.site-header');
-    if (!header) return;
+    const siteTitle = header.querySelector('.site-title');
+    const heroTitle = document.getElementById('hero-title');
+    const navLinks = header.querySelectorAll('.contact-link');
+
+    if (!header || !siteTitle || !heroTitle || !navLinks.length) return;
+
+    const handleResize = () => {
+        const isMobile = window.innerWidth <= 768;
+        navLinks.forEach(link => {
+            const linkType = link.dataset.linkType;
+            const icon = iconMap[linkType] || '';
+            const text = link.querySelector('.link-text')?.textContent || '';
+
+            if (isMobile) {
+                link.innerHTML = icon;
+                link.setAttribute('aria-label', text);
+            } else {
+                link.innerHTML = `<span class="link-text">${text}</span>`;
+                link.removeAttribute('aria-label');
+            }
+        });
+    };
+
     window.addEventListener('scroll', () => {
         header.classList.toggle('scrolled', window.scrollY > 10);
+
+        const heroTitleRect = heroTitle.getBoundingClientRect();
+        const isVisible = heroTitleRect.bottom < header.offsetHeight;
+        if (isVisible) {
+            siteTitle.classList.add('visible');
+            header.classList.add('nav-visible');
+        } else {
+            siteTitle.classList.remove('visible');
+            header.classList.remove('nav-visible');
+        }
     });
+
+    window.addEventListener('resize', handleResize);
+    handleResize(); // Initial call
 }
 
 function setupParticleBackground() {
@@ -437,12 +474,17 @@ function setupProjectCardHover() {
         const rotateY = ((x - centerX) / centerX) * 4;   // Max rotation of -4deg to 4deg
 
         card.style.transform = `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) scale3d(1.02, 1.02, 1.02)`;
+																  
+		 
     });
 
     projectGrid.addEventListener('mouseleave', e => {
         const cards = projectGrid.querySelectorAll('.project-card');
         cards.forEach(card => {
             card.style.transform = `perspective(1000px) rotateX(0) rotateY(0) scale3d(1, 1, 1)`;
+														 
+														 
+																											  
         });
     }, true);
 
