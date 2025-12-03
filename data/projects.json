@@ -219,21 +219,6 @@
       ],
       "image": "assets/images/projects/01_mom_knows_best_concept.png",
       "video": ""
-    },
-    {
-      "id": 15,
-      "title": "Multi-Agent Negotiation Arena",
-      "description": "AI agents, representing Buyers and Suppliers, autonomously negotiate deals in real-time to find the optimal market price.",
-      "skills": ["Data Architect"],
-      "links": [
-        {
-          "type": "github",
-          "url": "https://github.com/simplr-k18/mom_knows_best_simulator",
-          "icon": "github"
-        }
-      ],
-      "image": "assets/images/projects/01_mom_knows_best_concept.png",
-      "video": ""
     }
   ]
 }
