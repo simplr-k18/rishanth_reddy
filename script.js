@@ -287,8 +287,8 @@ function setupFunFact() {
     if (!funFactText) return;
 
     const funFacts = [
-        "Built systems processing billions of records. Still Google 'git revert vs reset'",
-        "Saved teams 100+ hrs/week with automation. Spend 2 hrs/week at Notion",
+        "Built systems processing billions of records",
+        "Saved teams 100+ hrs/week with automation",
         "Data architect by day. Figma perfectionist by night",
         "Fluent in SQL, Python, and Sarcasm",
         "My code is well-documented. My side projects folder is chaos",
