@@ -177,14 +177,14 @@
     },
     {
       "id": 12,
-      "title": "Twitter remake",
-      "description": "Changing the way the world see twitter by adiing fresh new design and features while keeping users in loop.",
+      "title": "X remake",
+      "description": "Changing the way the world see X aka twitter by adiing fresh new design and features while keeping users in loop.",
       "skills": ["Product Designer"],
       "links": [
         {
-          "type": "github",
-          "url": "https://github.com/simplr-k18/OPTIMA",
-          "icon": "github"
+          "type": "figma",
+          "url": "https://www.figma.com/community/file/1627664963610168915/x-feature-concepts-case-study-my-pm-portfolio?q_id=0b0b2cb9-3aad-4abb-b44d-a6442a48f3c0",
+          "icon": "figma"
         }
       ],
       "image": "assets/images/projects/01_twitter_concept.png",
