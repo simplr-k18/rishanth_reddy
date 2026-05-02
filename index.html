@@ -10,6 +10,26 @@
 <body>
     <div class="cursor-dot"></div>
     <div class="cursor-outline"></div>
+    <div class="manifesto-intro" id="manifestoIntro" aria-hidden="true">
+        <canvas class="manifesto-canvas" id="manifestoCanvas"></canvas>
+        <div class="manifesto-stage" aria-label="A short thought about craft">
+            <div class="manifesto-frame frame-one">
+                <span class="manifesto-kicker">In a world of infinite output</span>
+                <p>everything<br>can connect.</p>
+            </div>
+            <div class="manifesto-frame frame-two">
+                <p>Not every<br>connection<br>deserves to stay.</p>
+            </div>
+            <div class="manifesto-frame frame-three">
+                <span>The work is judgment.</span>
+                <span>The craft is restraint.</span>
+            </div>
+            <div class="manifesto-frame frame-four">
+                <p>Rishanth<br><span>data products with signal</span></p>
+            </div>
+        </div>
+        <button class="manifesto-skip" id="skipManifesto" type="button">Skip</button>
+    </div>
 
     <header class="site-header">
         <div class="container">
@@ -147,7 +167,11 @@
 
     <footer class="site-footer-bottom">
         <div class="container">
-            <p>&copy; 2025 Rishanth Gautham Kalicheti</p>
+            <div class="footer-note">
+                <p><strong>Make less. Mean more.</strong></p>
+                <p class="footer-signoff">In a world that can generate endlessly, I build for the decisions that still deserve human judgment.</p>
+                <button class="footer-replay" id="replayManifesto" type="button">Replay the thought</button>
+            </div>
         </div>
     </footer>
 
