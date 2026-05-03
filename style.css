@@ -70,7 +70,7 @@ body.theme-switching * {
     opacity: 0;
     visibility: hidden;
     pointer-events: none;
-    transition: opacity 0.9s cubic-bezier(0.16, 1, 0.3, 1), visibility 0.9s;
+    transition: opacity 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94), visibility 0.8s;
 }
 
 .manifesto-intro::after {
@@ -101,8 +101,8 @@ body.theme-switching * {
     width: 100%;
     height: 100%;
     opacity: 0;
-    transform: scale(1.04);
-    transition: opacity 0.9s cubic-bezier(0.16, 1, 0.3, 1), transform 8.5s cubic-bezier(0.16, 1, 0.3, 1);
+    transform: scale(1.06);
+    transition: opacity 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94), transform 8s cubic-bezier(0.25, 0.46, 0.45, 0.94);
 }
 
 .manifesto-intro.is-active .manifesto-canvas {
@@ -124,8 +124,8 @@ body.theme-switching * {
     flex-direction: column;
     justify-content: center;
     opacity: 0;
-    transform: translateY(32px);
-    filter: blur(14px);
+    transform: translateY(28px);
+    filter: blur(12px);
 }
 
 .manifesto-frame p,
@@ -199,24 +199,24 @@ body.theme-switching * {
 }
 
 .manifesto-intro.is-active .manifesto-frame {
-    animation: manifestoFrame 2.35s cubic-bezier(0.16, 1, 0.3, 1) both;
+    animation: manifestoFrame 2.2s cubic-bezier(0.25, 0.46, 0.45, 0.94) both;
 }
 
 .manifesto-intro.is-active .frame-one {
-    animation-delay: 0.2s;
+    animation-delay: 0.3s;
 }
 
 .manifesto-intro.is-active .frame-two {
-    animation-delay: 2.55s;
+    animation-delay: 2.5s;
 }
 
 .manifesto-intro.is-active .frame-three {
-    animation-delay: 5.05s;
+    animation-delay: 4.9s;
 }
 
 .manifesto-intro.is-active .frame-four {
-    animation-delay: 7.65s;
-    animation-duration: 2.45s;
+    animation-delay: 7.4s;
+    animation-duration: 2.2s;
 }
 
 .manifesto-skip {
@@ -231,28 +231,30 @@ body.theme-switching * {
     cursor: pointer;
     font-size: 13px;
     letter-spacing: 0;
+    transition: all 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
 }
 
 .manifesto-skip:hover {
     color: #ffffff;
     border-color: rgba(255, 255, 255, 0.45);
+    transform: translateY(-2px);
 }
 
 @keyframes manifestoFrame {
     0% {
         opacity: 0;
-        transform: translateY(34px) scale(0.985);
-        filter: blur(14px);
+        transform: translateY(26px) scale(0.98);
+        filter: blur(12px);
     }
-    18%, 68% {
+    16%, 70% {
         opacity: 1;
         transform: translateY(0) scale(1);
         filter: blur(0);
     }
     100% {
         opacity: 0;
-        transform: translateY(-30px) scale(1.012);
-        filter: blur(12px);
+        transform: translateY(-26px) scale(1.02);
+        filter: blur(10px);
     }
 }
 
@@ -1509,4 +1511,32 @@ a:hover::after {
     section {
         margin-bottom: 60px;
     }
+}
+
+/* --- View Transition API Styles - Smooth WWDC-style animations --- */
+
+@keyframes reveal-from-corner {
+  from {
+    clip-path: circle(0% at var(--x) var(--y));
+  }
+  to {
+    clip-path: circle(180% at var(--x) var(--y));
+  }
+}
+
+@keyframes fade-out-smooth {
+  from {
+    opacity: 1;
+  }
+  to {
+    opacity: 0;
+  }
+}
+
+::view-transition-new(root) {
+  animation: reveal-from-corner 1.2s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+::view-transition-old(root) {
+  animation: fade-out-smooth 0.6s cubic-bezier(0.4, 0, 0.2, 1);
 }

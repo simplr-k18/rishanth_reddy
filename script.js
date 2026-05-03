@@ -41,12 +41,19 @@ function setupManifestoIntro() {
     const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
     const network = canvas ? createManifestoNetwork(canvas) : null;
     let closeTimer;
+    
+    // Initialize audio
+    const manifestoAudio = new Audio('assets/audio/manifesto.mp3');
+    manifestoAudio.loop = false;
+    manifestoAudio.volume = 0.8;
 
     const closeIntro = () => {
         window.clearTimeout(closeTimer);
         intro.classList.add('is-leaving');
         document.body.classList.remove('intro-running');
         intro.setAttribute('aria-hidden', 'true');
+        manifestoAudio.pause();
+        manifestoAudio.currentTime = 0;
         window.setTimeout(() => network?.stop(), reduceMotion ? 0 : 900);
         window.setTimeout(() => {
             intro.classList.remove('is-active', 'is-leaving');
@@ -61,6 +68,13 @@ function setupManifestoIntro() {
         intro.setAttribute('aria-hidden', 'false');
         document.body.classList.add('intro-running');
         network?.start();
+        
+        // Play audio
+        manifestoAudio.currentTime = 0;
+        manifestoAudio.play().catch(error => {
+            console.log('Audio autoplay prevented or failed:', error);
+        });
+        
         if (remember) sessionStorage.setItem('manifestoIntroSeen', 'true');
         closeTimer = window.setTimeout(closeIntro, 9400);
     };
@@ -183,15 +197,22 @@ function setupTheme() {
         const y = e.clientY;
 
         if (!document.startViewTransition) {
+            // Fallback for browsers without View Transitions
             document.body.classList.toggle('light-mode');
             themeToggle.textContent = isLight ? '☀️' : '🌙';
             localStorage.setItem('theme', isLight ? 'dark' : 'light');
             return;
         }
 
+        // Add visual feedback to button
+        themeToggle.style.transition = 'transform 0.2s cubic-bezier(0.4, 0, 0.2, 1)';
+        themeToggle.style.transform = 'scale(0.92)';
+        
+        // Set CSS variables for the click position with smooth spread
         document.documentElement.style.setProperty('--x', x + 'px');
         document.documentElement.style.setProperty('--y', y + 'px');
 
+        // Start the View Transition with smooth easing
         document.startViewTransition(() => {
             document.body.classList.toggle('light-mode');
 
@@ -199,6 +220,11 @@ function setupTheme() {
             themeToggle.textContent = newIsLight ? '🌙' : '☀️';
             localStorage.setItem('theme', newIsLight ? 'light' : 'dark');
         });
+        
+        // Reset button scale after animation
+        setTimeout(() => {
+            themeToggle.style.transform = 'scale(1)';
+        }, 1200);
     });
 }
 
