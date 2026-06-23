@@ -76,7 +76,7 @@ function setupManifestoIntro() {
         });
         
         if (remember) sessionStorage.setItem('manifestoIntroSeen', 'true');
-        closeTimer = window.setTimeout(closeIntro, 9400);
+        closeTimer = window.setTimeout(closeIntro, 15500);
     };
 
     if (!sessionStorage.getItem('manifestoIntroSeen')) {
@@ -95,6 +95,66 @@ function createManifestoNetwork(canvas) {
     let width = 0;
     let height = 0;
 
+    // Frame timing in ms (matches CSS animation delays + durations)
+    // frame-one: 0.3s delay, frame-two: 2.5s, frame-three: 4.9s, frame-four: 7.4s
+    const FRAME_TIMES = [300, 2500, 4900, 7400];
+
+    // Word shapes: each frame has a set of target points for particles to flow toward
+    // We generate these from text rendered to an offscreen canvas
+    function getTextPoints(text, fontSize, bold) {
+        const offscreen = document.createElement('canvas');
+        const scale = window.devicePixelRatio || 1;
+        offscreen.width = width * scale;
+        offscreen.height = height * scale;
+        const offCtx = offscreen.getContext('2d');
+        offCtx.scale(scale, scale);
+
+        const fw = bold ? 'bold' : '500';
+        offCtx.font = `${fw} ${fontSize}px "Helvetica Neue", Helvetica, Arial, sans-serif`;
+        offCtx.fillStyle = '#000';
+        offCtx.textAlign = 'center';
+        offCtx.textBaseline = 'middle';
+
+        const lines = text.split('\n');
+        const lineH = fontSize * 1.15;
+        const totalH = lines.length * lineH;
+        lines.forEach((line, i) => {
+            offCtx.fillText(line, width / 2, height / 2 - totalH / 2 + lineH * i + lineH / 2);
+        });
+
+        const imageData = offCtx.getImageData(0, 0, offscreen.width, offscreen.height);
+        const points = [];
+        const step = Math.max(3, Math.floor(scale * 4));
+        for (let y = 0; y < offscreen.height; y += step) {
+            for (let x = 0; x < offscreen.width; x += step) {
+                const idx = (y * offscreen.width + x) * 4;
+                if (imageData.data[idx + 3] > 100) {
+                    points.push({ x: x / scale, y: y / scale });
+                }
+            }
+        }
+        return points;
+    }
+
+    // Frame definitions
+    const frameDefs = [
+        { text: 'everything\ncan connect.', fontSize: Math.min(72, width * 0.08), bold: true },
+        { text: 'Not every\nconnection\ndeserves to stay.', fontSize: Math.min(60, width * 0.065), bold: false },
+        { text: 'The work is judgment.\nThe craft is restraint.', fontSize: Math.min(42, width * 0.045), bold: false },
+        { text: 'Rishanth', fontSize: Math.min(60, width * 0.07), bold: true }
+    ];
+
+    let framePoints = [];
+    let currentFrame = -1; // -1 = ambient (no frame active yet)
+    let frameStartTime = null;
+
+    function buildFramePoints() {
+        framePoints = frameDefs.map(f => {
+            const fs = Math.min(f.fontSize, width > 768 ? f.fontSize : f.fontSize * 0.7);
+            return getTextPoints(f.text, fs, f.bold);
+        });
+    }
+
     function resize() {
         const dpr = window.devicePixelRatio || 1;
         width = window.innerWidth;
@@ -106,39 +166,108 @@ function createManifestoNetwork(canvas) {
         ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
     }
 
+    const PARTICLE_COUNT = () => width > 768 ? 180 : 90;
+
     function createParticles() {
         particles = [];
-        const count = width > 768 ? 58 : 34;
+        const count = PARTICLE_COUNT();
         for (let i = 0; i < count; i++) {
             particles.push({
                 x: Math.random() * width,
                 y: Math.random() * height,
-                vx: (Math.random() - 0.5) * 0.42,
-                vy: (Math.random() - 0.5) * 0.42,
-                size: Math.random() * 1.8 + 1.1
+                // base random motion
+                vx: (Math.random() - 0.5) * 0.5,
+                vy: (Math.random() - 0.5) * 0.5,
+                size: Math.random() * 2.2 + 1.0,
+                // target (for word-form mode)
+                tx: null,
+                ty: null,
+                // opacity
+                alpha: Math.random() * 0.5 + 0.4,
+                // individual drift offsets for organic feel
+                ox: (Math.random() - 0.5) * 0.3,
+                oy: (Math.random() - 0.5) * 0.3,
             });
         }
     }
 
-    function draw() {
+    function assignTargets(frameIdx) {
+        if (frameIdx < 0 || frameIdx >= framePoints.length) {
+            // Ambient: clear targets
+            particles.forEach(p => { p.tx = null; p.ty = null; });
+            return;
+        }
+        const pts = framePoints[frameIdx];
+        if (!pts || pts.length === 0) {
+            particles.forEach(p => { p.tx = null; p.ty = null; });
+            return;
+        }
+        // Shuffle points and assign to particles
+        const shuffled = pts.slice().sort(() => Math.random() - 0.5);
+        particles.forEach((p, i) => {
+            if (i < shuffled.length) {
+                p.tx = shuffled[i].x;
+                p.ty = shuffled[i].y;
+            } else {
+                // Extra particles drift off to edges naturally
+                p.tx = null;
+                p.ty = null;
+            }
+        });
+    }
+
+    function draw(timestamp) {
         ctx.clearRect(0, 0, width, height);
-        ctx.fillStyle = 'rgba(255, 255, 255, 0.72)';
-        ctx.strokeStyle = 'rgba(255, 255, 255, 0.13)';
+
+        // Determine current frame based on elapsed time
+        if (frameStartTime !== null) {
+            const elapsed = timestamp - frameStartTime;
+            let newFrame = -1;
+            for (let i = FRAME_TIMES.length - 1; i >= 0; i--) {
+                if (elapsed >= FRAME_TIMES[i]) {
+                    newFrame = i;
+                    break;
+                }
+            }
+            if (newFrame !== currentFrame) {
+                currentFrame = newFrame;
+                assignTargets(currentFrame);
+            }
+        }
+
+        const isWordMode = currentFrame >= 0;
 
         particles.forEach((p, i) => {
-            p.x += p.vx;
-            p.y += p.vy;
+            if (isWordMode && p.tx !== null) {
+                // Attract toward text target with spring-like easing
+                const dx = p.tx - p.x;
+                const dy = p.ty - p.y;
+                const dist = Math.sqrt(dx * dx + dy * dy);
+                const speed = Math.min(0.12, 4 / Math.max(1, dist));
+                p.x += dx * speed + p.ox;
+                p.y += dy * speed + p.oy;
+                p.alpha = Math.min(1, p.alpha + 0.02);
+            } else {
+                // Ambient drift
+                p.x += p.vx;
+                p.y += p.vy;
+                if (p.x < 0 || p.x > width) p.vx *= -1;
+                if (p.y < 0 || p.y > height) p.vy *= -1;
+                p.alpha = Math.max(0.15, p.alpha - 0.005);
+            }
 
-            if (p.x < 0 || p.x > width) p.vx *= -1;
-            if (p.y < 0 || p.y > height) p.vy *= -1;
-
+            // Draw connections between nearby particles
             for (let j = i + 1; j < particles.length; j++) {
                 const p2 = particles[j];
                 const dx = p.x - p2.x;
                 const dy = p.y - p2.y;
                 const distance = Math.sqrt(dx * dx + dy * dy);
-                if (distance < 155) {
-                    ctx.globalAlpha = (1 - distance / 155) * 0.7;
+                const threshold = isWordMode ? 28 : 110;
+                if (distance < threshold) {
+                    const lineAlpha = (1 - distance / threshold) * (isWordMode ? 0.18 : 0.08);
+                    ctx.globalAlpha = lineAlpha;
+                    ctx.strokeStyle = '#1a1a1a';
+                    ctx.lineWidth = isWordMode ? 0.6 : 0.4;
                     ctx.beginPath();
                     ctx.moveTo(p.x, p.y);
                     ctx.lineTo(p2.x, p2.y);
@@ -146,25 +275,37 @@ function createManifestoNetwork(canvas) {
                 }
             }
 
-            ctx.globalAlpha = 1;
+            // Draw particle
+            const dotSize = isWordMode && p.tx !== null
+                ? Math.max(1.5, p.size * 0.85)
+                : p.size;
+            ctx.globalAlpha = p.alpha * (isWordMode ? 0.85 : 0.5);
+            ctx.fillStyle = '#1a1a1a';
             ctx.beginPath();
-            ctx.arc(p.x, p.y, p.size, 0, Math.PI * 2);
+            ctx.arc(p.x, p.y, dotSize, 0, Math.PI * 2);
             ctx.fill();
         });
 
+        ctx.globalAlpha = 1;
         rafId = running ? requestAnimationFrame(draw) : null;
     }
 
     function start() {
         if (running) return;
         running = true;
+        currentFrame = -1;
+        frameStartTime = null;
         resize();
+        buildFramePoints();
         createParticles();
-        draw();
+        frameStartTime = performance.now();
+        rafId = requestAnimationFrame(draw);
     }
 
     function stop() {
         running = false;
+        currentFrame = -1;
+        frameStartTime = null;
         if (rafId) cancelAnimationFrame(rafId);
         rafId = null;
         ctx.clearRect(0, 0, width, height);
@@ -173,7 +314,8 @@ function createManifestoNetwork(canvas) {
     window.addEventListener('resize', () => {
         if (!running) return;
         resize();
-        createParticles();
+        buildFramePoints();
+        assignTargets(currentFrame);
     });
 
     return { start, stop };

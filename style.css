@@ -176,24 +176,24 @@ body.intro-running {
 }
 
 .manifesto-intro.is-active .manifesto-frame {
-    animation: manifestoFrame 2.2s cubic-bezier(0.25, 0.46, 0.45, 0.94) both;
+    animation: manifestoFrame 3.2s cubic-bezier(0.25, 0.46, 0.45, 0.94) both;
 }
 
 .manifesto-intro.is-active .frame-one {
-    animation-delay: 0.3s;
+    animation-delay: 0.4s;
 }
 
 .manifesto-intro.is-active .frame-two {
-    animation-delay: 2.5s;
+    animation-delay: 3.8s;
 }
 
 .manifesto-intro.is-active .frame-three {
-    animation-delay: 4.9s;
+    animation-delay: 7.3s;
 }
 
 .manifesto-intro.is-active .frame-four {
-    animation-delay: 7.4s;
-    animation-duration: 2.2s;
+    animation-delay: 11s;
+    animation-duration: 3.8s;
 }
 
 .manifesto-skip {
@@ -223,7 +223,7 @@ body.intro-running {
         transform: translateY(26px) scale(0.98);
         filter: blur(12px);
     }
-    16%, 70% {
+    12%, 80% {
         opacity: 1;
         transform: translateY(0) scale(1);
         filter: blur(0);
@@ -928,6 +928,10 @@ a:hover::after {
 .footer-note {
     font-size: 14px;
     color: var(--text-secondary);
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
 }
 
 .footer-note strong {
