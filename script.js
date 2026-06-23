@@ -181,51 +181,11 @@ function createManifestoNetwork(canvas) {
 
 function setupTheme() {
     const themeToggle = document.getElementById('themeToggle');
-    const savedTheme = localStorage.getItem('theme') || 'dark';
     
-    document.body.classList.remove('light-mode');
-    if (savedTheme === 'light') {
-        document.body.classList.add('light-mode');
-        themeToggle.textContent = '🌙';
-    } else {
-        themeToggle.textContent = '☀️';
+    // Light theme only - hide the toggle
+    if (themeToggle) {
+        themeToggle.style.display = 'none';
     }
-
-    themeToggle.addEventListener('click', (e) => {
-        const isLight = document.body.classList.contains('light-mode');
-        const x = e.clientX;
-        const y = e.clientY;
-
-        if (!document.startViewTransition) {
-            // Fallback for browsers without View Transitions
-            document.body.classList.toggle('light-mode');
-            themeToggle.textContent = isLight ? '☀️' : '🌙';
-            localStorage.setItem('theme', isLight ? 'dark' : 'light');
-            return;
-        }
-
-        // Add visual feedback to button
-        themeToggle.style.transition = 'transform 0.2s cubic-bezier(0.4, 0, 0.2, 1)';
-        themeToggle.style.transform = 'scale(0.92)';
-        
-        // Set CSS variables for the click position with smooth spread
-        document.documentElement.style.setProperty('--x', x + 'px');
-        document.documentElement.style.setProperty('--y', y + 'px');
-
-        // Start the View Transition with smooth easing
-        document.startViewTransition(() => {
-            document.body.classList.toggle('light-mode');
-
-            const newIsLight = document.body.classList.contains('light-mode');
-            themeToggle.textContent = newIsLight ? '🌙' : '☀️';
-            localStorage.setItem('theme', newIsLight ? 'light' : 'dark');
-        });
-        
-        // Reset button scale after animation
-        setTimeout(() => {
-            themeToggle.style.transform = 'scale(1)';
-        }, 1200);
-    });
 }
 
 
@@ -258,13 +218,13 @@ function setupHeader() {
         header.classList.toggle('scrolled', window.scrollY > 10);
 
         const heroTitleRect = heroTitle.getBoundingClientRect();
-        const isVisible = heroTitleRect.bottom < header.offsetHeight;
+        const isVisible = heroTitleRect.bottom > 60;
         if (isVisible) {
-            siteTitle.classList.add('visible');
-            header.classList.add('nav-visible');
-        } else {
             siteTitle.classList.remove('visible');
             header.classList.remove('nav-visible');
+        } else {
+            siteTitle.classList.add('visible');
+            header.classList.add('nav-visible');
         }
     });
 
@@ -295,28 +255,29 @@ function setupParticleBackground() {
         canvas.height = window.innerHeight * dpr;
         canvas.style.width = `${window.innerWidth}px`;
         canvas.style.height = `${window.innerHeight}px`;
-        ctx.scale(dpr, dpr);
+        ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
     }
 
     function createParticles() {
         particles = [];
-        const particleCount = window.innerWidth > 768 ? 200 : 80;
+        const particleCount = window.innerWidth > 768 ? 220 : 120;
+        const maxSpeed = window.innerWidth > 768 ? 0.65 : 0.35;
+
         for (let i = 0; i < particleCount; i++) {
             particles.push({
                 x: Math.random() * window.innerWidth,
                 y: Math.random() * window.innerHeight,
-                vx: (Math.random() - 0.5) * 0.5,
-                vy: (Math.random() - 0.5) * 0.5,
-                size: Math.random() * 1.5 + 1,
+                vx: (Math.random() - 0.5) * maxSpeed,
+                vy: (Math.random() - 0.5) * maxSpeed,
+                size: Math.random() * 2 + 0.8,
             });
         }
     }
 
     function animateParticles() {
         ctx.clearRect(0, 0, window.innerWidth, window.innerHeight);
-        const isDark = !document.body.classList.contains('light-mode');
-        const particleColor = isDark ? 'rgba(255, 255, 255, 0.8)' : 'rgba(0, 0, 0, 0.8)';
-        const lineColor = isDark ? 'rgba(255, 255, 255, 0.1)' : 'rgba(0, 0, 0, 0.1)';
+        const particleColor = 'rgba(0, 0, 0, 0.08)';
+        const lineColor = 'rgba(0, 0, 0, 0.04)';
 
         particles.forEach((p, i) => {
             p.x += p.vx;
@@ -336,22 +297,26 @@ function setupParticleBackground() {
             }
 
             ctx.fillStyle = particleColor;
+            ctx.globalAlpha = 0.9;
             ctx.beginPath();
             ctx.arc(p.x, p.y, p.size, 0, Math.PI * 2);
             ctx.fill();
 
-            for (let j = i + 1; j < particles.length; j++) {
-                const p2 = particles[j];
-                const dx = p.x - p2.x;
-                const dy = p.y - p2.y;
-                const distance = Math.sqrt(dx * dx + dy * dy);
-                if (distance < 120) {
-                    ctx.beginPath();
-                    ctx.strokeStyle = lineColor;
-                    ctx.lineWidth = 0.5;
-                    ctx.moveTo(p.x, p.y);
-                    ctx.lineTo(p2.x, p2.y);
-                    ctx.stroke();
+            if (window.innerWidth > 600) {
+                for (let j = i + 1; j < particles.length; j++) {
+                    const p2 = particles[j];
+                    const dx = p.x - p2.x;
+                    const dy = p.y - p2.y;
+                    const distance = Math.sqrt(dx * dx + dy * dy);
+                    if (distance < 120) {
+                        ctx.globalAlpha = 0.14 * (1 - distance / 120);
+                        ctx.beginPath();
+                        ctx.strokeStyle = lineColor;
+                        ctx.lineWidth = 0.5;
+                        ctx.moveTo(p.x, p.y);
+                        ctx.lineTo(p2.x, p2.y);
+                        ctx.stroke();
+                    }
                 }
             }
         });
