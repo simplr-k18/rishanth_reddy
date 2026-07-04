@@ -54,7 +54,7 @@
       "id": 4,
       "title": "Sama",
       "description": "The Technology We Own, Not the Attention We Rent.",
-      "skills": ["Product Manager"],
+      "skills": ["Crazy Articles"],
       "links": [
         {
           "type": "substack",
@@ -218,6 +218,21 @@
         }
       ],
       "image": "assets/images/projects/01_mom_knows_best_concept.png",
+      "video": ""
+    },
+    {
+      "id": 15,
+      "title": "Supplier Continuity Intelligence",
+      "description": "When something goes wrong in the world, This project tells you exactly which of your operations is at risk - before your inbox does.",
+      "skills": ["Data Architect"],
+      "links": [
+        {
+          "type": "github",
+          "url": "https://github.com/simplr-k18/SentinelIQ",
+          "icon": "github"
+        }
+      ],
+      "image": "#",
       "video": ""
     }
   ]

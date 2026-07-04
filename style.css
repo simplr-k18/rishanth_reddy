@@ -762,15 +762,6 @@ a:hover::after {
     margin: 0;
 }
 
-.fun-fact .cursor {
-    width: 1px;
-    height: 1.2em;
-    display: inline-block;
-    margin-left: 6px;
-    background: var(--text-bright);
-    animation: blink 1.4s steps(2, end) infinite;
-}
-
 .fun-fact strong {
     color: var(--text-bright);
 }
